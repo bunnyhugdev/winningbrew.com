@@ -29,9 +29,12 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['web']], function () {
     Route::auth();
-    
+
     Route::get('/entries', 'EntryController@index');
     Route::post('/entry', 'EntryController@create');
     Route::delete('/entry/{entry}', 'EntryController@destroy');
+
+    //Route::get('/competitions', 'CompetitionController@index');
+    //Route::post('/competition', 'CompetitionController@create');
 
 });
