@@ -5749,13 +5749,36 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.navbar-inverse {
+  background-color: #14213d;
+  border-color: #14213d; }
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-brand {
+  color: #fca311; }
+
+.navbar {
+  border-radius: 0; }
+
 body {
   font-family: "Alegreya Sans", sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Alegreya SC", serif; }
+  font-family: "Alegreya SC", serif;
+  color: #14213d; }
 
 .navbar {
   font-family: "Alegreya SC", serif; }
+
+.btn-primary {
+  background-color: #fca311;
+  border-color: #fca311; }
+
+.btn-primary:hover {
+  background-color: #d78703;
+  border-color: #d78703; }
+
+body {
+  background-color: #e5e5e5; }
 
 /*# sourceMappingURL=app.css.map */

@@ -1,0 +1,13 @@
+.navbar-inverse {
+    background-color: $dark-colour;
+    border-color: $dark-colour;
+}
+
+.navbar-inverse .navbar-nav > li > a,
+.navbar-inverse .navbar-brand {
+    color: $accent-colour;
+}
+
+.navbar {
+    border-radius: 0;
+}

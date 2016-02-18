@@ -1,2 +1,9 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "resources/assets/sass/colours";
+@import "resources/assets/sass/navigation";
 @import "resources/assets/sass/typography";
+@import "resources/assets/sass/buttons";
+
+body {
+    background-color: $base-colour;
+}
