@@ -10,31 +10,48 @@ use App\Http\Controllers\Controller;
 use App\Entry;
 use App\Repositories\EntryRepository;
 
+use App\Competition;
+use App\Repositories\CompetitionRepository;
+
 class EntryController extends Controller
 {
 
     protected $entries;
 
-    public function __construct(EntryRepository $entries) {
+    public function __construct(EntryRepository $entries, CompetitionRepository $comps) {
         $this->middleware('auth');
 
         $this->entries = $entries;
+        $this->competitions = $comps;
     }
 
     public function index(Request $request) {
-        $entries = $this->entries->forUser($request->user());
+        $comp_id = $request->session()->get('competition', null);
+        if ($comp_id == null) {
+            $request->session()->flash('error', 'Not sure what competition you are trying to enter');
+            return redirect('/dashboard');
+        }
 
+        $comp = $this->competitions->get($comp_id);
         return view('entries.index', [
-            'entries' => $entries,
+            'entries' => $this->entries->forUser($request->user(), $comp),
+            'competition' => $comp
         ]);
     }
 
     public function create(Request $request) {
+        $comp_id = $request->session()->get('competition', null);
+        if ($comp_id == null) {
+            $request->session()->flash('error', 'Not sure what competition you are trying to enter');
+            return redirect('/dashboard');
+        }
+
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
         $request->user()->entries()->create([
             'name' => $request->name,
+            'competition_id' => $comp_id
         ]);
         return redirect('/entries');
     }
@@ -44,6 +61,11 @@ class EntryController extends Controller
 
         $entry->delete();
 
+        return redirect('/entries');
+    }
+
+    public function competition(Request $request, $id) {
+        $request->session()->put('competition', $id);
         return redirect('/entries');
     }
 }

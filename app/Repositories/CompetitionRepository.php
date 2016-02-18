@@ -6,8 +6,12 @@ use App\Competition;
 
 class CompetitionRepository {
     public function upcoming() {
-        Competition::where('entry_close', '>=', date('Y-m-d'))
+        return Competition::where('entry_close', '>=', date('Y-m-d'))
             ->orderBy('entry_close', 'asc')
             ->get();
+    }
+
+    public function get($id) {
+        return Competition::where('id', $id)->first();
     }
 }
