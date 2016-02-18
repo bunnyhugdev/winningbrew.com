@@ -1,0 +1,14 @@
+$heading-font: 'Alegreya SC', serif;
+$text-font: 'Alegreya Sans', sans-serif;
+
+body {
+    font-family: $text-font;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $heading-font;
+}
+
+.navbar {
+    font-family: $heading-font;
+}
