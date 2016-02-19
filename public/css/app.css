@@ -5774,11 +5774,32 @@ h1, h2, h3, h4, h5, h6 {
   background-color: #fca311;
   border-color: #fca311; }
 
-.btn-primary:hover {
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary:active:hover,
+.btn-primary:active:focus,
+.btn-primary:active.focus,
+.btn-primary.active:hover,
+.btn-primary.active:focus,
+.btn-primary.active.focus,
+.open > .btn-primary.dropdown-toggle,
+.open > .btn-primary.dropdown-toggle:hover,
+.open > .btn-primary.dropdown-toggle:focus,
+.open > .btn-primary.dropdown-toggle.focus {
   background-color: #d78703;
   border-color: #d78703; }
 
 body {
   background-color: #e5e5e5; }
+
+.comp-entries h4 {
+  display: inline-block; }
+
+.comp-entries .comp-entry-delete {
+  float: right;
+  display: inline; }
 
 /*# sourceMappingURL=app.css.map */
