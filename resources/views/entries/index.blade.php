@@ -11,16 +11,12 @@
                 {!! csrf_field() !!}
 
                 <div class="form-group">
-                    <label for="entry-name" class="control-label">Entry Name</label>
-                    <div class="input-group">
-                        <input type="text" name="name" id="entry-name" class="form-control">
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default">
-                                <i class="fa fa-plus"></i> Add entry
-                            </button>
-                        </span>
-                    </div>
+                    <label for="entry-name" class="control-label">What did you name your brew?</label>
+                    <input type="text" name="name" id="entry-name" class="form-control">
                 </div>
+                <button type="submit" class="btn btn-default">
+                    <i class="fa fa-plus"></i> Add entry
+                </button>
             </form>
         </div>
         @if (count($entries) > 0)
