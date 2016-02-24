@@ -13,16 +13,24 @@ use App\Repositories\EntryRepository;
 use App\Competition;
 use App\Repositories\CompetitionRepository;
 
+use App\Style;
+use App\Repositories\StyleRepository;
+
 class EntryController extends Controller
 {
-
+    protected $competitions;
     protected $entries;
+    protected $styles;
 
-    public function __construct(EntryRepository $entries, CompetitionRepository $comps) {
+    public function __construct(
+            EntryRepository $entries,
+            CompetitionRepository $comps,
+            StyleRepository $styles) {
         $this->middleware('auth');
 
         $this->entries = $entries;
         $this->competitions = $comps;
+        $this->styles = $styles;
     }
 
     public function index(Request $request) {
@@ -33,9 +41,11 @@ class EntryController extends Controller
         }
 
         $comp = $this->competitions->get($comp_id);
+        $styles = $this->styles->getAllStyles();
         return view('entries.index', [
             'entries' => $this->entries->forUser($request->user(), $comp),
-            'competition' => $comp
+            'competition' => $comp,
+            'styles' => $styles
         ]);
     }
 
@@ -51,7 +61,8 @@ class EntryController extends Controller
         ]);
         $request->user()->entries()->create([
             'name' => $request->name,
-            'competition_id' => $comp_id
+            'competition_id' => $comp_id,
+            'style_id' => $request->style
         ]);
         return redirect('/entries');
     }
