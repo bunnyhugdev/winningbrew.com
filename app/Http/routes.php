@@ -37,6 +37,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/', 'DashboardController@index');
 
+    Route::post('/payment', 'EntryController@payment');
+
     //Route::get('/competitions', 'CompetitionController@index');
     //Route::post('/competition', 'CompetitionController@create');
 

@@ -15,7 +15,6 @@ class CreateEntriesTable extends Migration
         Schema::create('entries', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('special_ingredients')->nullable();
             $table->string('comments')->nullable();
             $table->integer('user_id')->unsigned();
             $table->timestamps();

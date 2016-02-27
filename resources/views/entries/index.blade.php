@@ -6,6 +6,7 @@
         <div class="col-lg-6 col-md-12 col-sm-12">
             <h2>Register a Brew</h2>
             @include('common.errors')
+            @include('common.success')
 
             <form action={{ url('entry') }} method="POST">
                 {!! csrf_field() !!}
@@ -35,6 +36,50 @@
         </div>
         @if (count($entries) > 0)
         <div class="col-lg-6 col-md-12 col-sm-12">
+            <h2>Entry Fees</h2>
+            <p>You're current cost owing is $XXXX</p>
+            <form action={{ url('payment') }} method="POST">
+                {!! csrf_field() !!}
+                <div class="form-group">
+                    <label for="cc_number" class="control-label">Card Number</label>
+                    <input type="text" name="cc_number" id="cc_number" class="form-control">
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <div class="col-xs-4">
+                            <label for="cc_exp_month" class="control-label">Expiry Month</label>
+                            <input type="text" name="cc_exp_month" id="cc_exp_month" class="form-control">
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="cc_exp_month" class="control-label">Expiry Year</label>
+                            <input type="text" name="cc_exp_year" id="cc_exp_year" class="form-control">
+                        </div>
+                        <div class="col-xs-4">
+                            <label for="cc_cvv" class="control-label">CVV</label>
+                            <input type="text" name="cc_cvv" id="cc_cvv" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="cc_first_name" class="control-label">First Name</label>
+                            <input type="text" name="cc_first_name" id="cc_first_name" class="form-control">
+                        </div>
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="form-group">
+                            <label for="cc_last_name" class="control-label">Last Name</label>
+                            <input type="text" name="cc_last_name" id="cc_last_name" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="cc_type" class="control-label">Type</label>
+                    <input type="text" name="cc_type" id="cc_type" class="form-control">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Make Payment">
+            </form>
             <h2>Potentially Winning Brews</h2>
             <ul class="list-group comp-entries">
             @foreach ($entries as $entry)
@@ -47,6 +92,8 @@
                             <span class="glyphicon glyphicon-remove"></span> Delete
                         </button>
                     </form>
+                    <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}</p>
+                    <p>{{ $entry->comments }}</p>
                 </li>
             @endforeach
             </ul>
@@ -72,6 +119,7 @@
         } else {
             $('#entry-instructions').text("");
             $('#entry-info-group').hide();
+            $('#entry-info').val("");
         }
     });
 </script>
