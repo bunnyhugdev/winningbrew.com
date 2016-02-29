@@ -35,7 +35,7 @@
             </form>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12">
-            <h2>Potentially Winning Brews</h2>
+            <h2>Competitors</h2>
             <ul class="list-group comp-entries">
             @foreach ($entries as $entry)
                 <li class="list-group-item">

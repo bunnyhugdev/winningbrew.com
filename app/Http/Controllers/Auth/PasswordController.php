@@ -20,7 +20,7 @@ class PasswordController extends Controller
 
     use ResetsPasswords;
 
-    protected $redirectTo = '/entries';
+    protected $redirectTo = '/';
 
     /**
      * Create a new password controller instance.

@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="page-header"><h1>Brewcomp <small>How good are your brews?</small></h1></div>
+            <div class="page-header"><h1>WinningBrew.com <small>Is your brew good enough?</small></h1></div>
             <div class="panel panel-default">
 
                 <div class="panel-body">
