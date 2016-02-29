@@ -16,6 +16,8 @@ use App\Repositories\CompetitionRepository;
 use App\Style;
 use App\Repositories\StyleRepository;
 
+use App\Repositories\PaymentRepository;
+
 use PayPal\Rest\ApiContext;
 use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Api\CreditCard;
@@ -31,51 +33,42 @@ class EntryController extends Controller
     protected $competitions;
     protected $entries;
     protected $styles;
-    protected $paypalApiContext;
+    protected $payments;
 
     public function __construct(
             EntryRepository $entries,
             CompetitionRepository $comps,
-            StyleRepository $styles) {
+            StyleRepository $styles,
+            PaymentRepository $payments) {
         $this->middleware('auth');
 
         $this->entries = $entries;
         $this->competitions = $comps;
         $this->styles = $styles;
-
-        $this->paypalApiContext = new ApiContext(new OAuthTokenCredential(config('paypal.client_id'), config('paypal.secret')));
-        $this->paypalApiContext->setConfig(config('paypal.settings'));
+        $this->payments = $payments;
     }
 
     public function index(Request $request) {
-        $comp_id = $request->session()->get('competition', null);
-        if ($comp_id == null) {
-            $request->session()->flash('error', 'Not sure what competition you are trying to enter');
-            return redirect('/dashboard');
-        }
-
-        $comp = $this->competitions->get($comp_id);
+        $comp = $this->_getCompetition($request);
         $styles = $this->styles->getAllStyles();
         return view('entries.index', [
             'entries' => $this->entries->forUser($request->user(), $comp),
             'competition' => $comp,
-            'styles' => $styles
+            'styles' => $styles,
+            'paid' => $this->payments->amountPaid($request->user(), $comp),
+            'owing' => $this->payments->amountOwing($request->user(), $comp)
         ]);
     }
 
     public function create(Request $request) {
-        $comp_id = $request->session()->get('competition', null);
-        if ($comp_id == null) {
-            $request->session()->flash('error', 'Not sure what competition you are trying to enter');
-            return redirect('/dashboard');
-        }
+        $comp = $this->_getCompetition($request);
 
         $this->validate($request, [
             'name' => 'required|max:255',
         ]);
         $request->user()->entries()->create([
             'name' => $request->name,
-            'competition_id' => $comp_id,
+            'competition_id' => $comp->id,
             'style_id' => $request->style,
             'comments' => $request->comments
         ]);
@@ -96,13 +89,19 @@ class EntryController extends Controller
     }
 
     public function payment(Request $request) {
+        $comp = $this->_getCompetition($request);
+        $paypalApiContext = new ApiContext(new OAuthTokenCredential(
+            $comp->paypal_client_id, $comp->paypal_secret
+        ));
+        $paypalApiContext->setConfig(config('paypal.settings'));
+
         $cc_number = $request->cc_number;
         $cc_exp_month = $request->cc_exp_month;
         $cc_exp_year = $request->cc_exp_year;
         $cc_cvv = $request->cc_cvv;
         $cc_first_name = $request->cc_first_name;
         $cc_last_name = $request->cc_last_name;
-        $cc_type = $request->cc_type;
+        $cc_type = $this->_getCreditCardType($cc_number);
 
         $cc = new CreditCard();
         $cc->setType($cc_type)
@@ -136,12 +135,51 @@ class EntryController extends Controller
 
         $req = clone $payment;
         try {
-            $payment->create($this->paypalApiContext);
+            $payment->create($paypalApiContext);
         } catch (Exception $ex) {
             $request->session->flash('error', 'There was an issue processing your payment.');
             return redirect('/entries');
         }
-        $request->session()->flash('success', $payment->getId() . ' - ' . $payment->getState());
+        $request->session()->flash('success', 'Thanks for your payment of ' . $amount->getTotal());
+
+        $request->user()->payments()->create([
+            'competition_id' => $comp_id,
+            'status' => $payment->getState(),
+            'amount' => $amount->getTotal(),
+            'transaction_id' => $payment->getId()
+        ]);
+
         return redirect('/entries');
+    }
+
+    protected function _getCreditCardType($str, $format = 'string')
+    {
+        if (empty($str)) {
+            return false;
+        }
+
+        $matchingPatterns = [
+            'visa' => '/^4[0-9]{12}(?:[0-9]{3})?$/',
+            'mastercard' => '/^5[1-5][0-9]{14}$/',
+            'amex' => '/^3[47][0-9]{13}$/',
+            'discover' => '/^6(?:011|5[0-9]{2})[0-9]{12}$/'
+        ];
+
+        $ctr = 1;
+        foreach ($matchingPatterns as $key=>$pattern) {
+            if (preg_match($pattern, $str)) {
+                return $format == 'string' ? $key : $ctr;
+            }
+            $ctr++;
+        }
+    }
+
+    protected function _getCompetition(Request $request) {
+        $comp_id = $request->session()->get('competition', null);
+        if ($comp_id == null) {
+            $request->session()->flash('error', 'Not sure what competition you are trying to make payments on');
+            return redirect('/');
+        }
+        return $this->competitions->get($comp_id);
     }
 }

@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="col-lg-4 col-md-6 col-sm-12">
             <h2>Register a Brew</h2>
             @include('common.errors')
             @include('common.success')
@@ -34,10 +34,37 @@
                 </button>
             </form>
         </div>
+        <div class="col-lg-4 col-md-12 col-sm-12">
+            <h2>Potentially Winning Brews</h2>
+            <ul class="list-group comp-entries">
+            @foreach ($entries as $entry)
+                <li class="list-group-item">
+                    <h4>{{ $entry->name }}</h4>
+                    <form action="{{ url('/entry/'.$entry->id) }}" method="POST" class="comp-entry-delete">
+                        {!! csrf_field() !!}
+                        {!! method_field('DELETE') !!}
+                        <button class="btn btn-danger btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span> Delete
+                        </button>
+                    </form>
+                    <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}</p>
+                    <p>{{ $entry->comments }}</p>
+                </li>
+            @endforeach
+            </ul>
+        </div>
         @if (count($entries) > 0)
-        <div class="col-lg-6 col-md-12 col-sm-12">
+        <div class="col-lg-4 col-md-6 col-sm-12">
             <h2>Entry Fees</h2>
-            <p>You're current cost owing is $XXXX</p>
+            <div class="row">
+                <div class="col-xs-6">
+                    <h4>Paid: <span class="label label-success">${{ $paid }}</span></h4>
+                </div>
+                <div class="col-xs-6">
+                    <h4>Owing: <span class="label label-danger">${{ $owing }}</span></h4>
+                </div>
+            </div>
+            <h3>Pay it off</h3>
             <form action={{ url('payment') }} method="POST">
                 {!! csrf_field() !!}
                 <div class="form-group">
@@ -45,16 +72,39 @@
                     <input type="text" name="cc_number" id="cc_number" class="form-control">
                 </div>
                 <div class="row">
-                    <div class="form-group">
-                        <div class="col-xs-4">
+                    <div class="col-xs-4">
+                        <div class="form-group">
                             <label for="cc_exp_month" class="control-label">Expiry Month</label>
-                            <input type="text" name="cc_exp_month" id="cc_exp_month" class="form-control">
+                            <select name="cc_exp_month" id="cc_exp_month" class="form-control">
+                                <option>Month</option>
+                                <option value="01">January</option>
+                                <option value="02">February</option>
+                                <option value="03">March</option>
+                                <option value="04">April</option>
+                                <option value="05">May</option>
+                                <option value="06">June</option>
+                                <option value="07">July</option>
+                                <option value="08">August</option>
+                                <option value="09">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
                         </div>
-                        <div class="col-xs-4">
-                            <label for="cc_exp_month" class="control-label">Expiry Year</label>
-                            <input type="text" name="cc_exp_year" id="cc_exp_year" class="form-control">
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
+                            <label for="cc_exp_year" class="control-label">Expiry Year</label>
+                            <select name="cc_exp_year" id="cc_exp_year" class="form-control">
+                                <?php $y = date("Y"); ?>
+                                @for ($i = 0; $i < 15; $i++)
+                                <option value="<?php echo ($y + $i); ?>"><?php echo ($y + $i); ?></option>
+                                @endfor
+                            </select>
                         </div>
-                        <div class="col-xs-4">
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="form-group">
                             <label for="cc_cvv" class="control-label">CVV</label>
                             <input type="text" name="cc_cvv" id="cc_cvv" class="form-control">
                         </div>
@@ -74,30 +124,10 @@
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="cc_type" class="control-label">Type</label>
-                    <input type="text" name="cc_type" id="cc_type" class="form-control">
-                </div>
                 <input type="submit" class="btn btn-primary" value="Make Payment">
             </form>
-            <h2>Potentially Winning Brews</h2>
-            <ul class="list-group comp-entries">
-            @foreach ($entries as $entry)
-                <li class="list-group-item">
-                    <h4>{{ $entry->name }}</h4>
-                    <form action="{{ url('/entry/'.$entry->id) }}" method="POST" class="comp-entry-delete">
-                        {!! csrf_field() !!}
-                        {!! method_field('DELETE') !!}
-                        <button class="btn btn-danger btn-xs">
-                            <span class="glyphicon glyphicon-remove"></span> Delete
-                        </button>
-                    </form>
-                    <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}</p>
-                    <p>{{ $entry->comments }}</p>
-                </li>
-            @endforeach
-            </ul>
         </div>
+
         @endif
     </div>
 </div>

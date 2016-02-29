@@ -28,4 +28,8 @@ class User extends Authenticatable
     public function entries() {
         return $this->hasMany(Entry::class);
     }
+
+    public function payments() {
+        return $this->hasMany(Payment::class);
+    }
 }
