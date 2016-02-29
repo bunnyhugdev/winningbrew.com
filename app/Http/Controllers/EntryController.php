@@ -65,6 +65,7 @@ class EntryController extends Controller
 
         $this->validate($request, [
             'name' => 'required|max:255',
+            'style' => 'required'
         ]);
         $request->user()->entries()->create([
             'name' => $request->name,
@@ -77,9 +78,7 @@ class EntryController extends Controller
 
     public function destroy(Request $request, Entry $entry) {
         $this->authorize('destroy', $entry);
-
         $entry->delete();
-
         return redirect('/entries');
     }
 
@@ -90,6 +89,13 @@ class EntryController extends Controller
 
     public function payment(Request $request) {
         $comp = $this->_getCompetition($request);
+        $this->validate($request, [
+            'cc_number' => 'required|numeric',
+            'cc_exp_month' => 'required|numeric',
+            'cc_exp_year' => 'required|numeric',
+            'cc_first_name' => 'required',
+            'cc_last_name' => 'required'
+        ]);
         $paypalApiContext = new ApiContext(new OAuthTokenCredential(
             $comp->paypal_client_id, $comp->paypal_secret
         ));

@@ -3,10 +3,14 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 col-md-6 col-sm-12">
-            <h2>Register a Brew</h2>
+        <div class="col-xs-12">
             @include('common.errors')
             @include('common.success')
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-6 col-sm-12">
+            <h2>Register a Brew</h2>
 
             <form action={{ url('entry') }} method="POST">
                 {!! csrf_field() !!}
@@ -64,6 +68,7 @@
                     <h4>Owing: <span class="label label-danger">${{ $owing }}</span></h4>
                 </div>
             </div>
+            @if ($owing > 0)
             <h3>Pay it off</h3>
             <form action={{ url('payment') }} method="POST">
                 {!! csrf_field() !!}
@@ -126,8 +131,8 @@
                 </div>
                 <input type="submit" class="btn btn-primary" value="Make Payment">
             </form>
+            @endif
         </div>
-
         @endif
     </div>
 </div>
