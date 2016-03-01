@@ -39,6 +39,9 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('/payment', 'EntryController@payment');
 
+    Route::get('/profile/{user}', 'UserController@profile');
+    Route::post('/profile/{user}', 'UserController@update');
+
     //Route::get('/competitions', 'CompetitionController@index');
     //Route::post('/competition', 'CompetitionController@create');
 
