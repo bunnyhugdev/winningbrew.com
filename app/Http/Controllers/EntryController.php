@@ -16,6 +16,8 @@ use App\Repositories\CompetitionRepository;
 use App\Style;
 use App\Repositories\StyleRepository;
 
+use App\User;
+
 use App\Repositories\PaymentRepository;
 
 use PayPal\Rest\ApiContext;
@@ -56,7 +58,8 @@ class EntryController extends Controller
             'competition' => $comp,
             'styles' => $styles,
             'paid' => $this->payments->amountPaid($request->user(), $comp),
-            'owing' => $this->payments->amountOwing($request->user(), $comp)
+            'owing' => $this->payments->amountOwing($request->user(), $comp),
+            'invalidAddress' => $this->_isAddressInvalid($request->user())
         ]);
     }
 
@@ -187,5 +190,12 @@ class EntryController extends Controller
             return redirect('/');
         }
         return $this->competitions->get($comp_id);
+    }
+
+    protected function _isAddressInvalid(User $user) {
+        return (strlen($user->address1) === 0) ||
+               (strlen($user->city) === 0) ||
+               (strlen($user->province) === 0) ||
+               (strlen($user->postal_code) === 0);
     }
 }

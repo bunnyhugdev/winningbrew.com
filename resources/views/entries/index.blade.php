@@ -6,6 +6,14 @@
         <div class="col-xs-12">
             @include('common.errors')
             @include('common.success')
+            @if ($invalidAddress)
+                <div class="alert alert-warning">
+                    <p><strong>Warning!</strong></p>
+                    <p>Make sure <a href="{{ url('/profile') . '/' . Auth::user()->id }}">your address</a>
+                        has been entered and is valid. How else will we know
+                        where to send prizes?</p>
+                </div>
+            @endif
         </div>
     </div>
     <div class="row">
