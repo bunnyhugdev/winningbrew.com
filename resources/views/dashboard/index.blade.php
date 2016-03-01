@@ -20,7 +20,8 @@
                         <p><strong>Results:</strong> {{ $comp->result_at }}</p>
                     </div>
                 </div>
-                <p><a href="{{ url('/entries/competition/') . '/' . $comp->id }}" class="btn btn-primary">Register Your Brews</a></p>
+                <p><a href="{{ url('/entries/competition/') . '/' . $comp->id }}" class="btn btn-primary">
+                    <i class="fa fa-btn fa-beer"></i> Register Your Brews</a></p>
             </div>
         @endforeach
         @endif

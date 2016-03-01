@@ -137,7 +137,7 @@
                         </div>
                     </div>
                 </div>
-                <input type="submit" class="btn btn-primary" value="Make Payment">
+                <button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-credit-card"></i> Make Payment</button>
             </form>
             @endif
         </div>
