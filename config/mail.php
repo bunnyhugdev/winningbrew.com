@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'competition@alesclub.com', 'name' => 'ALES Homebrew Competition'],
+    'from' => ['address' => 'brewmaster@winningbrew.com', 'name' => 'WinningBrew.com'],
 
     /*
     |--------------------------------------------------------------------------
