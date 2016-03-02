@@ -5761,14 +5761,14 @@ button.close {
   border-radius: 0; }
 
 body {
-  font-family: "Alegreya Sans", sans-serif; }
+  font-family: "Source Sans Pro", Helvetica, sans-serif; }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Alegreya SC", serif;
+  font-family: "Lato", Helvetica, Verdana, Arial, serif;
   color: #14213d; }
 
 .navbar {
-  font-family: "Alegreya SC", serif; }
+  font-family: "Lato", Helvetica, Verdana, Arial, serif; }
 
 .btn-primary {
   background-color: #fca311;
