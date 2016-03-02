@@ -47,7 +47,8 @@
             </form>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12">
-            <h2>Competitors</h2>
+            <h2>Entries <a href="{{ url('/entries/labels') }}" target="_blank"
+                class="btn btn-default pull-right">Print Labels</a></h2>
             <ul class="list-group comp-entries">
             @foreach ($entries as $entry)
                 <li class="list-group-item">
@@ -59,7 +60,8 @@
                             <i class="fa fa-btn fa-times"></i> Delete
                         </button>
                     </form>
-                    <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}</p>
+                    <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}
+                        / Label: {{ $entry->label }}</p>
                     <p>{{ $entry->comments }}</p>
                 </li>
             @endforeach

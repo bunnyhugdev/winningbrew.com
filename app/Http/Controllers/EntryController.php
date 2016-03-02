@@ -162,6 +162,16 @@ class EntryController extends Controller
         return redirect('/entries');
     }
 
+    public function labels(Request $request) {
+        $comp = $this->_getCompetition($request);
+        $entries = $this->entries->forUser($request->user(), $comp);
+        return view('entries.labels', [
+            'entries' => $entries,
+            'competition' => $comp,
+            'user' => $request->user()
+        ]);
+    }
+
     protected function _getCreditCardType($str, $format = 'string')
     {
         if (empty($str)) {

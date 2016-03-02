@@ -6,8 +6,6 @@ use App\User;
 use App\Entry;
 use App\Competition;
 
-use Log;
-
 class EntryRepository {
 
     public function forUser(User $user, Competition $competition) {
@@ -23,13 +21,11 @@ class EntryRepository {
         $counter = 0;
 
         while ($counter < 100) {
-            Log::debug('Attempting to find a label', ['iteration' => $counter]);
             $lbl = rand(0, 9999);
             $count = Entry::where([
                 ['competition_id', $competition->id],
                 ['label', $lbl]
             ])->count();
-            Log::debug('First attempt at label', ['label' => $lbl, 'exists' => $count]);
             if ($count === 0) {
                 return $lbl;
             }

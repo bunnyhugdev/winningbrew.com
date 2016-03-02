@@ -34,7 +34,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/entry', 'EntryController@create');
     Route::delete('/entry/{entry}', 'EntryController@destroy');
     Route::get('/entries/competition/{id}', 'EntryController@competition');
-
+    Route::get('/entries/labels', 'EntryController@labels');
+    
     Route::get('/', 'DashboardController@index');
 
     Route::post('/payment', 'EntryController@payment');
