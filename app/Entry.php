@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Entry extends Model
 {
     protected $fillable = [
-        'name', 'special_ingredients', 'comments', 'competition_id', 'style_id'
+        'name', 'special_ingredients', 'comments', 'competition_id', 'style_id',
+        'label'
     ];
 
     public function user() {

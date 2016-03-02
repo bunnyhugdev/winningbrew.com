@@ -74,7 +74,8 @@ class EntryController extends Controller
             'name' => $request->name,
             'competition_id' => $comp->id,
             'style_id' => $request->style,
-            'comments' => $request->comments
+            'comments' => $request->comments,
+            'label' => $this->entries->findUniqueLabel($comp)
         ]);
         return redirect('/entries');
     }

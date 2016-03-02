@@ -42,7 +42,7 @@
                     <textarea class="form-control" rows="3" name="comments" id="entry-info"></textarea>
                 </div>
                 <button type="submit" class="btn btn-default">
-                    <i class="fa fa-plus"></i> Add entry
+                    <i class="fa fa-btn fa-plus"></i> Add entry
                 </button>
             </form>
         </div>
@@ -56,7 +56,7 @@
                         {!! csrf_field() !!}
                         {!! method_field('DELETE') !!}
                         <button class="btn btn-danger btn-xs">
-                            <span class="glyphicon glyphicon-remove"></span> Delete
+                            <i class="fa fa-btn fa-times"></i> Delete
                         </button>
                     </form>
                     <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}</p>
