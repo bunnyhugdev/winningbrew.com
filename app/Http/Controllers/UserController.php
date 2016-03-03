@@ -31,6 +31,7 @@ class UserController extends Controller {
         $user->city = $request->city;
         $user->province = $request->province;
         $user->postal_code = $request->postal_code;
+        $user->accept_communication = $request->accept_communication;
 
         $user->save();
 

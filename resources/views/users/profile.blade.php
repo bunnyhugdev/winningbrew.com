@@ -67,6 +67,13 @@
                     <label for="user-pc" class="control-label">Postal Code</label>
                     <input type="text" name="postal_code" id="user-pc" value="{{ $user->postal_code }}" class="form-control">
                 </div>
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" name="accept_communication" value="1" {{ $user->accept_communication ? "checked" : "" }}>
+                        Would you like to accept periodic communication from
+                        competitions and WinningBrew.com?
+                    </label>
+                </div>
                 <input type="submit" class="btn btn-primary" value="Update">
             </div>
             <div class="col-lg-3 col-md-6 col-xs-12">
