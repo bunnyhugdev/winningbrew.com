@@ -35,8 +35,8 @@ class UserController extends Controller {
         $user->province = $request->province;
         $user->postal_code = $request->postal_code;
         $user->accept_communication = $request->accept_communication;
-        $user->club_id = $request->club;
-        
+        $user->club_id = $request->club == "" ? null : $request->club;
+
         $user->save();
 
         $request->session()->flash('success', 'Your information has been updated');
