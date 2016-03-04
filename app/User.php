@@ -13,7 +13,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'email', 'password', 'address1', 'address2',
-        'city', 'province', 'postal_code', 'accepts_communication'
+        'city', 'province', 'postal_code', 'accepts_communication',
+        'club_id'
     ];
 
     /**
@@ -31,5 +32,9 @@ class User extends Authenticatable
 
     public function payments() {
         return $this->hasMany(Payment::class);
+    }
+
+    public function club() {
+        return $this->belongsTo(Club::class);
     }
 }

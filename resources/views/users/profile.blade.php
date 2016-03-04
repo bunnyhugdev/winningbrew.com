@@ -67,6 +67,18 @@
                     <label for="user-pc" class="control-label">Postal Code</label>
                     <input type="text" name="postal_code" id="user-pc" value="{{ $user->postal_code }}" class="form-control">
                 </div>
+                <div class="form-group">
+                    <label for="user-club" class="control-label">Club</label>
+                    <select name="club" id="user-club" class="form-control">
+                        <option value="">None</option>
+                        @foreach ($clubs as $club)
+                            @if ($club->id == $user->club_id)
+                                <option value="{{ $club->id }}" selected>{{ $club->name }}</option>
+                            @else
+                                <option value="{{ $club->id }}">{{ $club->name }}</option>
+                            @endif
+                        @endforeach
+                    </select>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="accept_communication" value="1" {{ $user->accept_communication ? "checked" : "" }}>
