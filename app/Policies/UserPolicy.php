@@ -14,10 +14,10 @@ class UserPolicy {
     }
 
     public function update(User $userEditing, User $userToEdit) {
-        return $userEditing->id === $userToEdit->id;
+        return $userEditing->id == $userToEdit->id;
     }
 
     public function profile(User $userViewing, User $userToView) {
-        return $userViewing->id === $userToView->id;
+        return $userViewing->id == $userToView->id;
     }
 }
