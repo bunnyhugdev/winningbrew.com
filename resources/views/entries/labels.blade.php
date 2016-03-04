@@ -29,5 +29,10 @@
             </div>
         </div>
     @endforeach
+    <h3>Please Ship Entries to:</h3>
+    <p>Bushwakker Brewing Co.<br>
+        Attn: ALES Open<br>
+        2206 Dewdney Ave.<br>
+        Regina, SK, S4R 1H3</p>
 </body>
 </html>
