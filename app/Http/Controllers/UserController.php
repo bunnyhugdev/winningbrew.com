@@ -37,6 +37,7 @@ class UserController extends Controller {
         $user->postal_code = $request->postal_code;
         $user->accept_communication = $request->accept_communication;
         $user->club_id = $request->club == "" ? null : $request->club;
+        $user->shirt_size = $request->shirt_size == "" ? null : $request->shirt_size;
 
         $user->save();
 

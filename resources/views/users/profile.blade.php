@@ -83,6 +83,27 @@
                             @endif
                         @endforeach
                     </select>
+                </div>
+                <div class="form-group">
+                    <label for="user-shirt" class="control-label">Shirt Size</label>
+                    <?php $sizes = [
+                        'S' => 'Small',
+                        'M' => 'Medium',
+                        'L' => 'Large',
+                        'XL' => 'Extra Large',
+                        'XXL' => 'Double Extra Large'
+                    ]; ?>
+                    <select name="shirt_size" id="user-shirt" class="form-control">
+                        <option value="">Prefer not to answer</option>
+                        @foreach ($sizes as $key => $size)
+                            @if ($key == $user->shirt_size)
+                            <option value="{{ $key }}" selected>{{ $size }}</option>
+                            @else
+                            <option value="{{ $key }}">{{ $size }}</option>
+                            @endif
+                        @endforeach
+                    </select>
+                </div>
                 <div class="checkbox">
                     <label>
                         <input type="checkbox" name="accept_communication" value="1" {{ $user->accept_communication ? "checked" : "" }}>
