@@ -18,3 +18,17 @@ body {
         display: inline;
     }
 }
+
+.comp-title {
+    text-align: center;
+}
+
+.comp-logo {
+    text-align: center;
+    padding: 2em;
+    img {
+        width: 150px;
+        max-height: 200px;
+    }
+
+}

@@ -5802,4 +5802,14 @@ body {
   float: right;
   display: inline; }
 
+.comp-title {
+  text-align: center; }
+
+.comp-logo {
+  text-align: center;
+  padding: 2em; }
+  .comp-logo img {
+    width: 150px;
+    max-height: 200px; }
+
 /*# sourceMappingURL=app.css.map */

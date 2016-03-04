@@ -9,7 +9,15 @@
         </div>
         @foreach ($upcoming as $comp)
             <div class="col-sm-12 col-md-6 panel panel-default comp-container">
-                <h3 class="comp-title">{{ $comp->name }}</h3>
+
+                <h2 class="comp-title">
+                    {{ $comp->name }}
+                </h2>
+                <div class="comp-logo">
+                    @if ($comp->competition_logo != "")
+                        <img alt="{{ $comp->name }}" src="{{ url($comp->competition_logo) }}">
+                    @endif
+                </div>
                 <div class="row">
                     <div class="col-sm-4 col-xs-12">
                         <p><strong>Registration Open</strong></p><p>{{ $comp->entry_open }}</p>
