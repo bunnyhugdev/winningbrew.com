@@ -18,7 +18,7 @@
 </head>
 <body>
     <h1>{{ $competition->name }} - Entry Labels</h1>
-    <h3>Entrant: {{ $user->name }}</h3>
+    <h3>Entrant: {{ $user->first_name }} {{ $user->last_name }}</h3>
     @foreach ($entries as $entry)
         <div class="entry">
             <p>Name: {{ $entry->name }} /

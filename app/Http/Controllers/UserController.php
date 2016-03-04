@@ -28,7 +28,8 @@ class UserController extends Controller {
     public function update(Request $request, User $user) {
         $this->authorize('update', $user);
 
-        $user->name = $request->name;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
         $user->address1 = $request->address1;
         $user->address2 = $request->address2;
         $user->city = $request->city;

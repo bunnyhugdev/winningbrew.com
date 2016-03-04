@@ -19,8 +19,12 @@
         <div class="row">
             <div class="col-lg-offset-3 col-lg-3 col-md-6 col-xs-12">
                 <div class="form-group">
-                    <label for="user-name" class="control-label">Your Name</label>
-                    <input type="text" name="name" id="user-name" value="{{ $user->name }}" class="form-control">
+                    <label for="user-fname" class="control-label">First Name</label>
+                    <input type="text" name="first_name" id="user-fname" value="{{ $user->first_name }}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="user-lname" class="control-label">Last Name</label>
+                    <input type="text" name="last_name" id="user-lname" value="{{ $user->last_name }}" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="user-address1" class="control-label">Address</label>
