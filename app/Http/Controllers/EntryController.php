@@ -28,6 +28,8 @@ use PayPal\Api\Payer;
 use PayPal\Api\Amount;
 use PayPal\Api\Transaction;
 use PayPal\Api\Payment;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\PaymentExecution;
 
 
 class EntryController extends Controller
@@ -91,6 +93,83 @@ class EntryController extends Controller
         return redirect('/entries');
     }
 
+    public function postpayment(Request $request) {
+        $comp = $this->_getCompetition($request);
+        $paypalApiContext = new ApiContext(new OAuthTokenCredential(
+            $comp->paypal_client_id, $comp->paypal_secret
+        ));
+        if ($request->has('status') && $request->input('status') == 'approved') {
+            $paymentId = $request->input('paymentId');
+            $payment = Payment::get($paymentId, $paypalApiContext);
+
+            $execution = new PaymentExecution();
+            $execution->setPayerId($request->input('PayerID'));
+
+            try {
+                $result = $payment->execute($execution, $paypalApiContext);
+
+                $amount = 0;
+                foreach ($result->getTransactions() as $tx) {
+                    $amount += $tx->getAmount()->getTotal();
+                }
+                $request->session()->flash('success', 'Thanks for your payment of $' . $amount);
+
+                $request->user()->payments()->create([
+                    'competition_id' => $comp->id,
+                    'status' => $result->getState(),
+                    'amount' => $amount,
+                    'transaction_id' => $payment->getId()
+                ]);
+            } catch (Exception $ex) {
+                $request->session->flash('error', 'There was an issue executing your payment with paypal.');
+                return redirect('/entries');
+            }
+        } else {
+            $request->session()->flash('error', 'Your payment was cancelled.');
+        }
+        return redirect('/entries');
+    }
+
+    public function paypal(Request $request) {
+        $comp = $this->_getCompetition($request);
+        $paypalApiContext = new ApiContext(new OAuthTokenCredential(
+            $comp->paypal_client_id, $comp->paypal_secret
+        ));
+        $paypalApiContext->setConfig(config('paypal.settings'));
+
+        $payer = new Payer();
+        $payer->setPaymentMethod('paypal');
+
+        $amount = new Amount();
+        $amount->setCurrency("CAD")
+            ->setTotal($this->payments->amountOwing($request->user(), $comp));
+
+        $tx = new Transaction();
+        $tx->setAmount($amount)
+            ->setDescription($comp->name . " Entry Fees")
+            ->setInvoiceNumber(uniqid());
+
+        $rootUrl = $request->root();
+        $redirectUrls = new RedirectUrls();
+        $redirectUrls->setReturnUrl("$rootUrl/postpayment?status=approved")
+            ->setCancelUrl("$rootUrl/postpayment?status=cancelled");
+
+        $payment = new Payment();
+        $payment->setIntent("sale")
+            ->setPayer($payer)
+            ->setRedirectUrls($redirectUrls)
+            ->setTransactions(array($tx));
+
+        try {
+            $payment->create($paypalApiContext);
+        } catch (Exception $ex) {
+            $request->session->flash('error', 'There was an issue communicating with paypal.');
+            return redirect('/entries');
+        }
+
+        return redirect($payment->getApprovalLink());
+    }
+
     public function payment(Request $request) {
         $comp = $this->_getCompetition($request);
         $this->validate($request, [
@@ -131,11 +210,11 @@ class EntryController extends Controller
 
         $amount = new Amount();
         $amount->setCurrency("CAD")
-            ->setTotal(10);
+            ->setTotal($this->payments->amountOwing($request->user(), $comp));
 
         $tx = new Transaction();
         $tx->setAmount($amount)
-            ->setDescription("Homebrew Competition Entry Fees")
+            ->setDescription($comp->name . " Entry Fees")
             ->setInvoiceNumber(uniqid());
 
         $payment = new Payment();
@@ -150,10 +229,10 @@ class EntryController extends Controller
             $request->session->flash('error', 'There was an issue processing your payment.');
             return redirect('/entries');
         }
-        $request->session()->flash('success', 'Thanks for your payment of ' . $amount->getTotal());
+        $request->session()->flash('success', 'Thanks for your payment of $' . $amount->getTotal());
 
         $request->user()->payments()->create([
-            'competition_id' => $comp_id,
+            'competition_id' => $comp->id,
             'status' => $payment->getState(),
             'amount' => $amount->getTotal(),
             'transaction_id' => $payment->getId()

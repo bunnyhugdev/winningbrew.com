@@ -35,10 +35,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::delete('/entry/{entry}', 'EntryController@destroy');
     Route::get('/entries/competition/{id}', 'EntryController@competition');
     Route::get('/entries/labels', 'EntryController@labels');
-    
+
     Route::get('/', 'DashboardController@index');
 
     Route::post('/payment', 'EntryController@payment');
+    Route::get('/paypal', 'EntryController@paypal');
+    Route::get('/postpayment', 'EntryController@postpayment');
 
     Route::get('/profile/{user}', 'UserController@profile');
     Route::post('/profile/{user}', 'UserController@update');

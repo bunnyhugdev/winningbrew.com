@@ -10,14 +10,14 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-offset-3 col-lg-9 col-md-12 col-xs-12">
+        <div class="col-lg-9 col-md-12 col-xs-12">
             <h2>Your Information</h2>
         </div>
     </div>
     <form action={{ url('profile') . '/' . $user->id }} method="POST">
         {!! csrf_field() !!}
         <div class="row">
-            <div class="col-lg-offset-3 col-lg-3 col-md-6 col-xs-12">
+            <div class="col-lg-3 col-md-6 col-xs-12">
                 <div class="form-group">
                     <label for="user-fname" class="control-label">First Name</label>
                     <input type="text" name="first_name" id="user-fname" value="{{ $user->first_name }}" class="form-control">
@@ -71,6 +71,8 @@
                     <label for="user-pc" class="control-label">Postal Code</label>
                     <input type="text" name="postal_code" id="user-pc" value="{{ $user->postal_code }}" class="form-control">
                 </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-xs-12">
                 <div class="form-group">
                     <label for="user-club" class="control-label">Club</label>
                     <select name="club" id="user-club" class="form-control">
@@ -111,10 +113,11 @@
                         competitions and WinningBrew.com?
                     </label>
                 </div>
-                <input type="submit" class="btn btn-primary" value="Update">
             </div>
-            <div class="col-lg-3 col-md-6 col-xs-12">
-
+        </div>
+        <div class="row">
+            <div class="col-xs-12">
+                <input type="submit" class="btn btn-primary" value="Update">
             </div>
         </div>
     </form>
