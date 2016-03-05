@@ -81,6 +81,7 @@
             @if ($owing > 0)
             <h3>Pay via PayPal</h3>
             <a href="{{ url('/paypal') }}" class="btn btn-primary"><i class="fa fa-btn fa-paypal"></i> Pay now with PayPal</a>
+            <span style="display: none;">
             <h3>Pay via Credit Card</h3>
             <form action={{ url('payment') }} method="POST">
                 {!! csrf_field() !!}
@@ -144,7 +145,7 @@
                 <button type="submit" class="btn btn-primary"><i class="fa fa-btn fa-credit-card"></i> Make Payment</button>
 
             </form>
-
+            </span>
             @endif
         </div>
         @endif

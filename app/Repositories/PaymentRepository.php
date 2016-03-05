@@ -23,7 +23,8 @@ class PaymentRepository {
     public function amountPaid(User $user, Competition $competition) {
         return Payment::where([
             'user_id' => $user->id,
-            'competition_id' =>$competition->id
+            'competition_id' =>$competition->id,
+            'status' => 'approved'
         ])->sum('amount');
     }
 }
