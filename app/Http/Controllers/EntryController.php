@@ -32,6 +32,7 @@ use PayPal\Api\RedirectUrls;
 use PayPal\Api\PaymentExecution;
 
 
+
 class EntryController extends Controller
 {
     protected $competitions;
@@ -98,6 +99,8 @@ class EntryController extends Controller
         $paypalApiContext = new ApiContext(new OAuthTokenCredential(
             $comp->paypal_client_id, $comp->paypal_secret
         ));
+        $paypalApiContext->setConfig(config('paypal.settings'));
+
         if ($request->has('status') && $request->input('status') == 'approved') {
             $paymentId = $request->input('paymentId');
             $payment = Payment::get($paymentId, $paypalApiContext);
