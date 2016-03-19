@@ -32,22 +32,22 @@ class CompetitionController extends Controller
         $this->validate($request, [
             'name' => 'required|max:255'
         ]);
-        $comp = new Competition;
-        $comp->name = $request->name;
-        $comp->description = $request->description;
-        $comp->rules = $request->rules;
-        $comp->entry_open = $request->entry_open;
-        $comp->entry_close = $request->entry_close;
-        $comp->judge_start = $request->judge_start;
-        $comp->judge_end = $request->judge_end;
-        $comp->result_at = $request->result_at;
-        $comp->ship_address1 = $request->ship_address1;
-        $comp->ship_address2 = $request->ship_address2;
-        $comp->ship_city = $request->ship_city;
-        $comp->ship_province = $request->ship_province;
-        $comp->ship_postal_code = $request->ship_postal_code;
 
-        $comp->save();
+        $request->user()->competitions()->create([
+            'name' = $request->name,
+            'description' = $request->description,
+            'rules' = $request->rules,
+            'entry_open' = $request->entry_open,
+            'entry_close' = $request->entry_close,
+            'judge_start' = $request->judge_start,
+            'judge_end' = $request->judge_end,
+            'result_at' = $request->result_at,
+            'ship_address1' = $request->ship_address1,
+            'ship_address2' = $request->ship_address2,
+            'ship_city' = $request->ship_city,
+            'ship_province' = $request->ship_province,
+            'ship_postal_code' = $request->ship_postal_code,
+        ]);
 
         return redirect('/competitions');
     }

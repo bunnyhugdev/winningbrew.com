@@ -37,4 +37,29 @@ class User extends Authenticatable
     public function club() {
         return $this->belongsTo(Club::class);
     }
+
+    public function competitionAdmins() {
+        return $this->belongsToMany(Competition::class, 'competitions_admins');
+    }
+
+    public function competitions() {
+        return $this->hasMany(Competition::class, 'creator');
+    }
+
+    public function isSuperAdmin() {
+        return $this->admin == 1;
+    }
+
+    public function isCompetitionAdmin(Competition $competition) {
+        if ($this->id == $competition->creator()->id) {
+            return true;
+        }
+
+        foreach ($this->competitionAdmins() as $comp) {
+            if ($comp->id == $competition->id) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

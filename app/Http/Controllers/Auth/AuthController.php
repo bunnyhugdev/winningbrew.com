@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
+
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
@@ -70,5 +73,16 @@ class AuthController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    protected function authenticated(Request $request, User $user) {
+        // clear out the session since laravel seems to copy it
+        // from one user to another.
+
+        if ($request->session()->has('competition')) {
+            $request->session()->forget('competition');
+        }
+
+        return redirect()->intended($this->redirectPath());
     }
 }

@@ -36,9 +36,14 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
+                @if (Auth::check())
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}">Home</a></li>
+                    @if (Session::has('competition'))
+                        <li><a href="#">{{ Session::get('competition') }}</a></li>
+                    @endif
                 </ul>
+                @endif
 
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
