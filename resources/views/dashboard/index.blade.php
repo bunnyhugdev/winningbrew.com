@@ -37,6 +37,9 @@
                 </div>
                 <p><a href="{{ url('/entries/competition/') . '/' . $comp->id }}" class="btn btn-primary">
                     <i class="fa fa-btn fa-beer"></i> Register Your Brews</a></p>
+                @if (Auth::user()->isCompetitionAdmin($comp))
+                    
+                @endif
             </div>
         @endforeach
         @endif

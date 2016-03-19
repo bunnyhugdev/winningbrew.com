@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Log;
 
 class User extends Authenticatable
 {
@@ -51,11 +52,11 @@ class User extends Authenticatable
     }
 
     public function isCompetitionAdmin(Competition $competition) {
-        if ($this->id == $competition->creator()->id) {
+        if ($this->id == $competition->creator) {
             return true;
         }
 
-        foreach ($this->competitionAdmins() as $comp) {
+        foreach ($this->competitionAdmins as $comp) {
             if ($comp->id == $competition->id) {
                 return true;
             }

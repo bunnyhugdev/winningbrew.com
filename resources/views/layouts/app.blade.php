@@ -39,9 +39,6 @@
                 @if (Auth::check())
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/') }}">Home</a></li>
-                    @if (Session::has('competition'))
-                        <li><a href="#">{{ Session::get('competition') }}</a></li>
-                    @endif
                 </ul>
                 @endif
 
