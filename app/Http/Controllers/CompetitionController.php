@@ -34,21 +34,29 @@ class CompetitionController extends Controller
         ]);
 
         $request->user()->competitions()->create([
-            'name' = $request->name,
-            'description' = $request->description,
-            'rules' = $request->rules,
-            'entry_open' = $request->entry_open,
-            'entry_close' = $request->entry_close,
-            'judge_start' = $request->judge_start,
-            'judge_end' = $request->judge_end,
-            'result_at' = $request->result_at,
-            'ship_address1' = $request->ship_address1,
-            'ship_address2' = $request->ship_address2,
-            'ship_city' = $request->ship_city,
-            'ship_province' = $request->ship_province,
-            'ship_postal_code' = $request->ship_postal_code,
+            'name' => $request->name,
+            'description' => $request->description,
+            'rules' => $request->rules,
+            'entry_open' => $request->entry_open,
+            'entry_close' => $request->entry_close,
+            'judge_start' => $request->judge_start,
+            'judge_end' => $request->judge_end,
+            'result_at' => $request->result_at,
+            'ship_address1' => $request->ship_address1,
+            'ship_address2' => $request->ship_address2,
+            'ship_city' => $request->ship_city,
+            'ship_province' => $request->ship_province,
+            'ship_postal_code' => $request->ship_postal_code,
         ]);
 
         return redirect('/competitions');
+    }
+
+    public function admin(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        
+        return view('competitions.admin', [
+            'competition' => $competition
+        ]);
     }
 }

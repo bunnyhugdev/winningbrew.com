@@ -35,11 +35,14 @@
                     </div>
 
                 </div>
-                <p><a href="{{ url('/entries/competition/') . '/' . $comp->id }}" class="btn btn-primary">
-                    <i class="fa fa-btn fa-beer"></i> Register Your Brews</a></p>
+                <p>
+                    <a href="{{ url('/entries/competition/') . '/' . $comp->id }}" class="btn btn-primary">
+                        <i class="fa fa-btn fa-beer"></i> Register Your Brews</a>
                 @if (Auth::user()->isCompetitionAdmin($comp))
-                    
+                    <a href="{{ url('/competition/admin/') . '/' . $comp->id }}" class="btn btn-default">
+                        <i class="fa fa-btn fa-cogs"></i> Competition Dashboard</a>
                 @endif
+                </p>
             </div>
         @endforeach
         @endif

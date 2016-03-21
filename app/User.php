@@ -3,7 +3,6 @@
 namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Log;
 
 class User extends Authenticatable
 {
@@ -61,6 +60,7 @@ class User extends Authenticatable
                 return true;
             }
         }
+
         return false;
     }
 }
