@@ -19,6 +19,14 @@
                 @endforeach
             </ul>
         </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <h3>Competition Stats</h3>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    Total Entries <span class="badge">{{ $totalCount }}</span>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>
 @endsection

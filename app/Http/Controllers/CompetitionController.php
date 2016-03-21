@@ -57,7 +57,8 @@ class CompetitionController extends Controller
 
         return view('competitions.admin', [
             'competition' => $competition,
-            'entriesByEntryCategory' => $this->competitions->entriesByEntryCategory($competition)
+            'entriesByEntryCategory' => $this->competitions->entriesByEntryCategory($competition),
+            'totalCount' => $this->competitions->totalEntries($competition)
         ]);
     }
 }

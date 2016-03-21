@@ -26,4 +26,9 @@ class CompetitionRepository {
             ->groupBy('styles.id')
             ->get();
     }
+
+    public function totalEntries(Competition $competition) {
+        return Entry::where('competition_id', $competition->id)
+            ->count();
+    }
 }
