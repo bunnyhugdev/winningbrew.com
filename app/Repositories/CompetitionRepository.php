@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Competition;
 use App\Entry;
+use App\Payment;
 
 use DB;
 
@@ -30,5 +31,9 @@ class CompetitionRepository {
     public function totalEntries(Competition $competition) {
         return Entry::where('competition_id', $competition->id)
             ->count();
+    }
+
+    public function totalFees(Competition $competition) {
+        return Payment::where('competition_id', $competition->id)->sum('amount');
     }
 }

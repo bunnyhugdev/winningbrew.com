@@ -25,6 +25,9 @@
                 <li class="list-group-item">
                     Total Entries <span class="badge">{{ $totalCount }}</span>
                 </li>
+                <li class="list-group-item">
+                    Total Fees Collected <span class="badge">${{ $totalFees }}</span>
+                </li>
             </ul>
         </div>
     </div>
