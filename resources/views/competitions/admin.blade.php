@@ -30,6 +30,24 @@
                 </li>
             </ul>
         </div>
+        <div class="col-lg-4 col-sm-6 col-xs-12">
+            <h3>Entrants by Club</h3>
+            <ul class="list-group">
+                @foreach ($entrantsByClub as $entrants)
+                    <li class="list-group-item">
+                        {{ $entrants->name }} <span class="badge">{{ $entrants->userCount }}</span>
+                    </li>
+                @endforeach
+            </ul>
+            <h3>Entries by Club</h3>
+            <ul class="list-group">
+                @foreach ($entriesByClub as $entries)
+                    <li class="list-group-item">
+                        {{ $entries->name }} <span class="badge">{{ $entries->entryCount }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </div>
     </div>
 </div>
 @endsection

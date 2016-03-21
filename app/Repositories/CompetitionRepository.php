@@ -36,4 +36,24 @@ class CompetitionRepository {
     public function totalFees(Competition $competition) {
         return Payment::where('competition_id', $competition->id)->sum('amount');
     }
+
+    public function entrantsByClub(Competition $competition) {
+        return DB::table('entries')
+            ->join('users', 'entries.user_id', '=', 'users.id')
+            ->join('clubs', 'users.club_id', '=', 'clubs.id')
+            ->select('clubs.name', DB::raw('count(distinct users.id) as userCount'))
+            ->where('entries.competition_id', '=', $competition->id)
+            ->groupBy('clubs.name')
+            ->get();
+    }
+
+    public function entriesByClub(Competition $competition) {
+        return DB::table('entries')
+            ->join('users', 'entries.user_id', '=', 'users.id')
+            ->join('clubs', 'users.club_id', '=', 'clubs.id')
+            ->select('clubs.name', DB::raw('count(entries.id) as entryCount'))
+            ->where('entries.competition_id', '=', $competition->id)
+            ->groupBy('clubs.name')
+            ->get();
+    }
 }
