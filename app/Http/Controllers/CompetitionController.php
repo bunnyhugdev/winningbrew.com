@@ -54,9 +54,10 @@ class CompetitionController extends Controller
 
     public function admin(Request $request, Competition $competition) {
         $this->authorize('admin', $competition);
-        
+
         return view('competitions.admin', [
-            'competition' => $competition
+            'competition' => $competition,
+            'entriesByEntryCategory' => $this->competitions->entriesByEntryCategory($competition)
         ]);
     }
 }
