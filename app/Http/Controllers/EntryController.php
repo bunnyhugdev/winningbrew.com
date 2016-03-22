@@ -55,7 +55,7 @@ class EntryController extends Controller
 
     public function index(Request $request) {
         $comp = $this->_getCompetition($request);
-        $styles = $this->styles->getAllStyles();
+        $styles = $this->styles->getCompetitionStyles($comp);
         return view('entries.index', [
             'entries' => $this->entries->forUser($request->user(), $comp),
             'competition' => $comp,

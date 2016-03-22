@@ -20,4 +20,8 @@ class Competition extends Model
     public function creator() {
         return $this->belongsTo(User::class, 'creator');
     }
+
+    public function guide() {
+        return $this->belongsTo(Guide::class);
+    }
 }
