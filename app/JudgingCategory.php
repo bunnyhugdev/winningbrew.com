@@ -13,4 +13,8 @@ class JudgingCategory extends Model
     public function guide() {
         return $this->belongsTo(JudgingGuide::class);
     }
+
+    public function mappings() {
+        return $this->hasMany(JudgingCategoryMapping::class);
+    }
 }
