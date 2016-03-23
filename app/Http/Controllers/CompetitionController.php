@@ -61,7 +61,8 @@ class CompetitionController extends Controller
             'totalCount' => $this->competitions->totalEntries($competition),
             'totalFees' => $this->competitions->totalFees($competition),
             'entrantsByClub' => $this->competitions->entrantsByClub($competition),
-            'entriesByClub' => $this->competitions->entriesByClub($competition)
+            'entriesByClub' => $this->competitions->entriesByClub($competition),
+            'entriesByJudgingCategory' => $this->competitions->entriesByJudgingCategories($competition)
         ]);
     }
 }

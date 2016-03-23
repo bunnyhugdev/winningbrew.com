@@ -28,6 +28,19 @@ class CompetitionRepository {
             ->get();
     }
 
+    public function entriesByJudgingCategories(Competition $competition) {
+        return DB::table('entries')
+            ->join('judging_category_mappings', 'judging_category_mappings.style_id', '=', 'entries.style_id')
+            ->join('judging_categories', 'judging_categories.id', '=', 'judging_category_mappings.judging_category_id')
+            ->select('judging_categories.ordinal', 'judging_categories.name', DB::raw('count(entries.id) as total'))
+            ->where([
+                ['entries.competition_id', $competition->id],
+                ['judging_categories.judging_guide_id', $competition->judging_guide_id]
+            ])
+            ->groupBy('judging_categories.ordinal', 'judging_categories.name')
+            ->get();
+    }
+
     public function totalEntries(Competition $competition) {
         return Entry::where('competition_id', $competition->id)
             ->count();

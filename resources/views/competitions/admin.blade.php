@@ -29,6 +29,15 @@
                     Total Fees Collected <span class="badge">${{ $totalFees }}</span>
                 </li>
             </ul>
+            <h3>Entries By Judging Category</h3>
+            <ul class="list-group">
+                @foreach ($entriesByJudgingCategory as $cat)
+                    <li class="list-group-item">
+                        <span class="badge">{{ $cat->total }}</span>
+                        {{ $cat->ordinal }}. {{ $cat->name }}
+                    </li>
+                @endforeach
+            </ul>
         </div>
         <div class="col-lg-4 col-sm-6 col-xs-12">
             <h3>Entrants by Club</h3>
