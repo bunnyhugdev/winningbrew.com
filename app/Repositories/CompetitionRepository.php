@@ -38,6 +38,7 @@ class CompetitionRepository {
                 ['judging_categories.judging_guide_id', $competition->judging_guide_id]
             ])
             ->groupBy('judging_categories.ordinal', 'judging_categories.name')
+            ->orderBy('judging_categories.sort_order')
             ->get();
     }
 
