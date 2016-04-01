@@ -5,6 +5,7 @@ namespace App\Repositories;
 use App\Competition;
 use App\Entry;
 use App\Payment;
+use App\Style;
 
 use DB;
 
@@ -22,7 +23,8 @@ class CompetitionRepository {
     public function entriesByEntryCategory(Competition $competition) {
         return DB::table('entries')
             ->join('styles', 'styles.id', '=', 'entries.style_id')
-            ->select('styles.id', 'styles.subcategory', 'styles.subcategory_name', DB::raw('count(entries.id) as total'))
+            ->select('styles.id', 'styles.subcategory', 'styles.subcategory_name',
+                DB::raw('count(entries.id) as total'), DB::raw('sum(entries.received) as received'))
             ->where('entries.competition_id', '=', $competition->id)
             ->groupBy('styles.id')
             ->get();
@@ -68,6 +70,15 @@ class CompetitionRepository {
             ->select('clubs.name', DB::raw('count(entries.id) as entryCount'))
             ->where('entries.competition_id', '=', $competition->id)
             ->groupBy('clubs.name')
+            ->get();
+    }
+
+    public function entriesForStyle(Competition $competition, Style $style) {
+        return DB::table('entries')
+            ->where([
+                'competition_id' => $competition->id,
+                'style_id' => $style->id
+            ])
             ->get();
     }
 }

@@ -10,6 +10,9 @@ use App\Http\Controllers\Controller;
 use App\Competition;
 use App\Repositories\CompetitionRepository;
 
+use App\Style;
+use App\Entry;
+
 class CompetitionController extends Controller
 {
     protected $competitions;
@@ -64,5 +67,31 @@ class CompetitionController extends Controller
             'entriesByClub' => $this->competitions->entriesByClub($competition),
             'entriesByJudgingCategory' => $this->competitions->entriesByJudgingCategories($competition)
         ]);
+    }
+
+    public function receive_info(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+
+        return view('competitions.receive', [
+            'competition' => $competition,
+            'entriesByEntryCategory' => $this->competitions->entriesByEntryCategory($competition)
+        ]);
+    }
+
+    public function receive_style(Request $request, Competition $competition, Style $style) {
+        $this->authorize('admin', $competition);
+        return view('competitions.receive-style', [
+            'competition' => $competition,
+            'style' => $style,
+            'entries' => $this->competitions->entriesForStyle($competition, $style)
+        ]);
+    }
+
+    public function receive_entry(Request $request, Entry $entry) {
+        $this->authorize('admin', $entry->competition);
+        $entry->update([
+            'received' => $request->received
+        ]);
+        return redirect('/competition/receive/' . $entry->competition->id . '/' . $entry->style->id);
     }
 }

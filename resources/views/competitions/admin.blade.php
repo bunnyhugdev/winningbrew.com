@@ -8,6 +8,12 @@
         </div>
     </div>
     <div class="row">
+        <div class="col-lg-3 col-sm-6 col-xs-12">
+            <a href="{{url('competition/receive/') . '/' . $competition->id}}"
+                class="btn btn-lg btn-default"><i class="fa fa-btn fa-check-square-o"></i> Receive Entries</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-lg-4 col-sm-6 col-xs-12">
             <h3>Entries by Entry Category</h3>
             <ul class="list-group">

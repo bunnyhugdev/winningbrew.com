@@ -5811,4 +5811,10 @@ body {
     width: 150px;
     max-height: 200px; }
 
+.card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #fff;
+  padding: 10px 15px; }
+
 /*# sourceMappingURL=app.css.map */
