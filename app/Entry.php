@@ -8,7 +8,7 @@ class Entry extends Model
 {
     protected $fillable = [
         'name', 'special_ingredients', 'comments', 'competition_id', 'style_id',
-        'label'
+        'label', 'cobrewer'
     ];
 
     public function user() {

@@ -41,6 +41,10 @@
                     <p class="form-control-static" id="entry-instructions"></p>
                     <textarea class="form-control" rows="3" name="comments" id="entry-info"></textarea>
                 </div>
+                <div class="form-group">
+                    <label for="cobrewer" class="control-label">Any co-brewers?</label>
+                    <input type="text" name="cobrewer" id="cobrewer" class="form-control">
+                </div>
                 <button type="submit" class="btn btn-default">
                     <i class="fa fa-btn fa-plus"></i> Add entry
                 </button>
@@ -63,6 +67,9 @@
                     <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}
                         / Label: {{ $entry->label }}</p>
                     <p>{{ $entry->comments }}</p>
+                    @if (isset($entry->cobrewer))
+                    <p>Co-brewed with {{ $entry->cobrewer }}</p>
+                    @endif
                 </li>
             @endforeach
             </ul>
