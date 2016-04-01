@@ -57,6 +57,15 @@
             @foreach ($entries as $entry)
                 <li class="list-group-item">
                     <h4>{{ $entry->name }}</h4>
+                    <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}
+                        / Label: {{ $entry->label }}</p>
+                    <p>{{ $entry->comments }}</p>
+                    @if (isset($entry->cobrewer) && strlen($entry->cobrewer) > 0)
+                    <p>Co-brewed with {{ $entry->cobrewer }}</p>
+                    @endif
+                    <a href="{{ url('/entry') . '/' . $entry->id }}" class="btn btn-default btn-xs">
+                        <i class="fa fa-btn fa-pencil"></i> Update
+                    </a>
                     <form action="{{ url('/entry/'.$entry->id) }}" method="POST" class="comp-entry-delete">
                         {!! csrf_field() !!}
                         {!! method_field('DELETE') !!}
@@ -64,12 +73,7 @@
                             <i class="fa fa-btn fa-times"></i> Delete
                         </button>
                     </form>
-                    <p>{{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}
-                        / Label: {{ $entry->label }}</p>
-                    <p>{{ $entry->comments }}</p>
-                    @if (isset($entry->cobrewer))
-                    <p>Co-brewed with {{ $entry->cobrewer }}</p>
-                    @endif
+
                 </li>
             @endforeach
             </ul>

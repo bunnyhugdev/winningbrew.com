@@ -89,6 +89,29 @@ class EntryController extends Controller
         $entry->delete();
         return redirect('/entries');
     }
+    public function view(Request $request, Entry $entry) {
+        $comp = $this->_getCompetition($request);
+        $styles = $this->styles->getCompetitionStyles($comp);
+        return view('entries.view', [
+            'styles' => $styles,
+            'entry' => $entry
+        ]);
+    }
+    public function update(Request $request, Entry $entry) {
+        $this->authorize('update', $entry);
+        $this->validate($request, [
+            'name' => 'required|max:255',
+            'style' => 'required'
+        ]);
+        $entry->update([
+            'name' => $request->name,
+            'style_id' => $request->style,
+            'comments' => $request->comments,
+            'cobrewer' => $request->cobrewer
+        ]);
+        return redirect('/entries');
+
+    }
 
     public function competition(Request $request, $id) {
         $request->session()->put('competition', $id);

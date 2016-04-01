@@ -24,4 +24,8 @@ class EntryPolicy
     public function destroy(User $user, Entry $entry) {
         return $user->id == $entry->user_id;
     }
+
+    public function update(User $user, Entry $entry) {
+        return $user->id == $entry->user_id;
+    }
 }

@@ -5798,8 +5798,7 @@ body {
 .comp-entries h4 {
   display: inline-block; }
 
-.comp-entries .comp-entry-delete {
-  float: right;
+.comp-entries form {
   display: inline; }
 
 .comp-title {

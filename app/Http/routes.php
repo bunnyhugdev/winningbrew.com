@@ -32,6 +32,8 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/entries', 'EntryController@index');
     Route::post('/entry', 'EntryController@create');
+    Route::get('/entry/{entry}', 'EntryController@view');
+    Route::post('/entry/update/{entry}', 'EntryController@update');
     Route::delete('/entry/{entry}', 'EntryController@destroy');
     Route::get('/entries/competition/{id}', 'EntryController@competition');
     Route::get('/entries/labels', 'EntryController@labels');
