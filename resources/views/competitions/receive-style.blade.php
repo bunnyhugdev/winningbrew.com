@@ -32,11 +32,15 @@
 @section('scripts')
 <script>
     $('.receive-btn').click(function() {
-        var $frm = $(this).parents("form.receive-form");
+        var $frm = $(this).parents("form.receive-form"),
+            $this = $(this);
         $frm.children('input[name=received]').val($(this).attr('data-received'));
-        $frm.submit();
-        //$(this).parent().children('.btn-primary').removeClass('btn-primary').addClass('btn-default');
-        //$(this).addClass('btn-primary');
+        $.post($frm.attr('action'), $frm.serialize()).done(function(data, status) {
+            if (data.status === "success") {
+                $this.parent().children('.btn-primary').removeClass('btn-primary').addClass('btn-default');
+                $this.addClass('btn-primary');
+            }
+        });
     });
 </script>
 @endsection

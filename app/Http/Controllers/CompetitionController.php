@@ -92,6 +92,7 @@ class CompetitionController extends Controller
         $entry->update([
             'received' => $request->received
         ]);
-        return redirect('/competition/receive/' . $entry->competition->id . '/' . $entry->style->id);
+        //return redirect('/competition/receive/' . $entry->competition->id . '/' . $entry->style->id);
+        return response()->json(['status' => 'success', 'received' => $request->received]);
     }
 }
