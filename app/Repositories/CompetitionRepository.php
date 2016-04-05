@@ -79,6 +79,7 @@ class CompetitionRepository {
                 'competition_id' => $competition->id,
                 'style_id' => $style->id
             ])
+            ->orderBy('label')
             ->get();
     }
 }
