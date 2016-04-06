@@ -95,4 +95,16 @@ class CompetitionController extends Controller
         //return redirect('/competition/receive/' . $entry->competition->id . '/' . $entry->style->id);
         return response()->json(['status' => 'success', 'received' => $request->received]);
     }
+
+    public function receive_sheets(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        $all_entries = [];
+        foreach ($competition->guide->styles as $style) {
+            $all_entries[$style->subcategory . '-' . $style->subcategory_name] = $this->competitions->entriesForStyle($competition, $style);
+        }
+        return view('competitions.receive-sheets', [
+            'allEntries' => $all_entries,
+            'competition' => $competition
+        ]);
+    }
 }

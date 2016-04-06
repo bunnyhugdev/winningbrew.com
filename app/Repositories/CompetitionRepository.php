@@ -75,6 +75,7 @@ class CompetitionRepository {
 
     public function entriesForStyle(Competition $competition, Style $style) {
         return DB::table('entries')
+            ->join('styles', 'entries.style_id', '=', 'styles.id')
             ->where([
                 'competition_id' => $competition->id,
                 'style_id' => $style->id

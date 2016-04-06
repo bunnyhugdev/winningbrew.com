@@ -51,4 +51,5 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/competition/receive/{competition}', 'CompetitionController@receive_info');
     Route::get('/competition/receive/{competition}/{style}', 'CompetitionController@receive_style');
     Route::post('/competition/receive/entry/{entry}', 'CompetitionController@receive_entry');
+    Route::get('/competition/receive-sheets/{competition}', 'CompetitionController@receive_sheets');
 });
