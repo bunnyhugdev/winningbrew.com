@@ -8,7 +8,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3 col-sm-6 col-xs-12">
+        <div class="col-xs-12">
             <a href="{{url('competition/receive/') . '/' . $competition->id}}"
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-check-square-o"></i> Receive Entries</a>
             <a href="{{url('competition/pull_sheets/') . '/' . $competition->id}}" target="_blank"
