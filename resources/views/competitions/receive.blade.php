@@ -7,7 +7,7 @@
             <h1>{{ $competition->name }} - Receive by Category</h1>
         </div>
         <div class="col-xs-12">
-            <a href="{{ url('/competition/receive-sheets/') . '/' . $competition->id }}"
+            <a href="{{ url('/competition/receive-sheets/') . '/' . $competition->id }}" target="_blank"
                 class="btn btn-default"><i class="fa fa-btn fa-check-square-o"></i> Receive Sheets</a>
         </div>
     </div>

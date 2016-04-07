@@ -6,12 +6,13 @@ use App\Competition;
 use App\Entry;
 use App\Payment;
 use App\Style;
+use App\JudgingCategory;
 
 use DB;
 
 class CompetitionRepository {
     public function upcoming() {
-        return Competition::where('entry_close', '>=', date('Y-m-d'))
+        return Competition::where('result_at', '>=', date('Y-m-d'))
             ->orderBy('entry_close', 'asc')
             ->get();
     }
@@ -76,11 +77,27 @@ class CompetitionRepository {
     public function entriesForStyle(Competition $competition, Style $style) {
         return DB::table('entries')
             ->join('styles', 'entries.style_id', '=', 'styles.id')
+            ->select('entries.*', 'styles.subcategory', 'styles.subcategory_name')
             ->where([
                 'competition_id' => $competition->id,
                 'style_id' => $style->id
             ])
             ->orderBy('label')
+            ->get();
+    }
+
+    public function entriesForCategory(Competition $competition, JudgingCategory $category) {
+        return DB::table('entries')
+            ->join('judging_category_mappings', 'entries.style_id', '=', 'judging_category_mappings.style_id')
+            ->join('judging_categories', 'judging_category_mappings.judging_category_id', '=', 'judging_categories.id')
+            ->join('styles', 'entries.style_id', '=', 'styles.id')
+            ->select('entries.*', 'judging_categories.ordinal', 'judging_categories.name', 'styles.subcategory')
+            ->where([
+                ['entries.competition_id', $competition->id],
+                ['judging_categories.id',  $category->id],
+                ['entries.received', '>', 0]
+            ])
+            ->orderBy('entries.label')
             ->get();
     }
 }

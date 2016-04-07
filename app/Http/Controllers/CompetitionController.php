@@ -96,6 +96,14 @@ class CompetitionController extends Controller
         return response()->json(['status' => 'success', 'received' => $request->received]);
     }
 
+    public function receive_comment(Request $request, Entry $entry) {
+        $this->authorize('admin', $entry->competition);
+        $entry->update([
+            'received_comments' => $request->comment
+        ]);
+        return response()->json(['status' => 'success', 'comment' => $request->comment]);
+    }
+
     public function receive_sheets(Request $request, Competition $competition) {
         $this->authorize('admin', $competition);
         $all_entries = [];
@@ -103,6 +111,19 @@ class CompetitionController extends Controller
             $all_entries[$style->subcategory . '-' . $style->subcategory_name] = $this->competitions->entriesForStyle($competition, $style);
         }
         return view('competitions.receive-sheets', [
+            'allEntries' => $all_entries,
+            'competition' => $competition
+        ]);
+    }
+
+    public function pull_sheets(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        $all_entries = [];
+        foreach ($competition->judgingGuide->categories as $category) {
+            $all_entries[$category->ordinal . '-' . $category->name] =
+                $this->competitions->entriesForCategory($competition, $category);
+        }
+        return view('competitions.pull-sheets', [
             'allEntries' => $all_entries,
             'competition' => $competition
         ]);

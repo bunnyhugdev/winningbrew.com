@@ -47,9 +47,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/profile/{user}', 'UserController@profile');
     Route::post('/profile/{user}', 'UserController@update');
 
+    Route::post('/receive/entry/{entry}', 'CompetitionController@receive_entry');
+    Route::post('/receive/comment/{entry}', 'CompetitionController@receive_comment');
+    Route::get('/competition/receive-sheets/{competition}', 'CompetitionController@receive_sheets');
     Route::get('/competition/admin/{competition}', 'CompetitionController@admin');
     Route::get('/competition/receive/{competition}', 'CompetitionController@receive_info');
     Route::get('/competition/receive/{competition}/{style}', 'CompetitionController@receive_style');
-    Route::post('/competition/receive/entry/{entry}', 'CompetitionController@receive_entry');
-    Route::get('/competition/receive-sheets/{competition}', 'CompetitionController@receive_sheets');
+
+    Route::get('/competition/pull_sheets/{competition}', 'CompetitionController@pull_sheets');
 });

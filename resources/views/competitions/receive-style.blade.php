@@ -8,9 +8,10 @@
             <h3>Recieve {{ $style->subcategory . ' - ' . $style->subcategory_name }}</h3>
         </div>
         @foreach ($entries as $entry)
-        <div class="col-md-3 col-xs-6 card">
-            <p>{{ $style->subcategory . '-' . $entry->label }}
-                <form class="receive-form" method="post" action="{{ url('/competition/receive/entry') . '/' . $entry->id }}">
+        <div class="col-md-4 col-xs-6 card">
+            <p>{{ $entry->subcategory . '-' . $entry->label }}</p>
+            <p>
+                <form class="receive-form" method="post" action="{{ url('/receive/entry') . '/' . $entry->id }}">
                     {!! csrf_field() !!}
                     <?php $received = isset($entry->received) ? $entry->received : 0; ?>
                     <input type="hidden" name="received" value="{{ $received }}">
@@ -21,6 +22,15 @@
                             {{ $i }}</button>
                         @endfor
                     </span>
+                </form>
+            </p>
+            <p>
+                <form class="receive-comments-form" method="post" action="{{ url('/receive/comment') . '/' . $entry->id }}">
+                    {!! csrf_field() !!}
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-check"></i></span>
+                        <input type="text" name="comment" value="{{ $entry->received_comments or ''}}" class="form-control comment-input">
+                    </div>
                 </form>
             </p>
         </div>
@@ -36,11 +46,25 @@
             $this = $(this);
         $frm.children('input[name=received]').val($(this).attr('data-received'));
         $.post($frm.attr('action'), $frm.serialize()).done(function(data, status) {
-            if (data.status === "success") {
+            if (status == "success" && data.status === "success") {
                 $this.parent().children('.btn-primary').removeClass('btn-primary').addClass('btn-default');
                 $this.addClass('btn-primary');
             }
         });
+    });
+    $('.comment-input').change(function() {
+        var $frm = $(this).parents('form.receive-comments-form'),
+            $icon = $('i.fa', $frm);
+
+        $icon.removeClass('fa-check fa-times').addClass('fa-cog fa-spin');
+
+        $.post($frm.attr('action'), $frm.serialize()).done(function(data, status) {
+            if (status == "success" && data.status === "success") {
+                $icon.removeClass('fa-cog fa-spin').addClass('fa-check');
+            } else {
+                $icon.removeClass('fa-cog fa-span').addClass('fa-times');
+            }
+        })
     });
 </script>
 @endsection

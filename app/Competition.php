@@ -24,4 +24,8 @@ class Competition extends Model
     public function guide() {
         return $this->belongsTo(Guide::class);
     }
+
+    public function judgingGuide() {
+        return $this->belongsTo(JudgingGuide::class);
+    }
 }
