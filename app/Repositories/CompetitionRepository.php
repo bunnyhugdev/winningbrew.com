@@ -97,6 +97,7 @@ class CompetitionRepository {
                 ['judging_categories.id',  $category->id],
                 ['entries.received', '>', 0]
             ])
+            ->orderBy('judging_category_mappings.sort_order', 'asc')
             ->orderBy('entries.label')
             ->get();
     }
