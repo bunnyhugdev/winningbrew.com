@@ -40,7 +40,10 @@
         <div class="subcategory">
             <h3>{{ $style }}</h3>
             @foreach ($entries as $entry)
-                <div class="entry"><span class="checkbox"></span><span class="label">{{ $entry->subcategory . '-' . $entry->label }}</span></div>
+                <div class="entry">
+                    <span class="checkbox"></span><span class="label">{{ $entry->subcategory . '-' . $entry->label }}</span>
+                    <span class="comments">{{ $entry->received_comments }}</span>
+                </div>
             @endforeach
         </div>
     @endforeach
