@@ -13,6 +13,8 @@
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-check-square-o"></i> Receive Entries</a>
             <a href="{{url('competition/pull_sheets/') . '/' . $competition->id}}" target="_blank"
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-list"></i> Pull Sheets</a>
+            <a href="{{url('competition/judge_sheets/') . '/' . $competition->id}}" target="_blank"
+                class="btn btn-lg btn-default"><i class="fa fa-btn fa-gavel"></i> Judge Sheets</a>
         </div>
     </div>
     <div class="row">

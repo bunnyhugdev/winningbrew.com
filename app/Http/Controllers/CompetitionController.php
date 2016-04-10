@@ -128,4 +128,17 @@ class CompetitionController extends Controller
             'competition' => $competition
         ]);
     }
+
+    public function judge_sheets(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        $all_entries = [];
+        foreach ($competition->judgingGuide->categories as $category) {
+            $all_entries[$category->ordinal . '-' . $category->name] =
+                $this->competitions->entriesForCategory($competition, $category);
+        }
+        return view('competitions.judge-sheets', [
+            'allEntries' => $all_entries,
+            'competition' => $competition
+        ]);
+    }
 }
