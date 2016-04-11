@@ -141,4 +141,25 @@ class CompetitionController extends Controller
             'competition' => $competition
         ]);
     }
+
+    public function entrantsForCategory(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        $all_entries = [];
+        foreach ($competition->judgingGuide->categories as $category) {
+            $all_entries[$category->ordinal . '-' . $category->name] =
+                $this->competitions->userEntryXref($competition, $category);
+        }
+        return view('competitions.category-xref', [
+            'allEntries' => $all_entries,
+            'competition' => $competition
+        ]);
+    }
+
+    public function entriesForEntrant(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        return view('competitions.user-entries', [
+            'users' => $this->competitions->userEntries($competition),
+            'competition' => $competition
+        ]);
+    }
 }

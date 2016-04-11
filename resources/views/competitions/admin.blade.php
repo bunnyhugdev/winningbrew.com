@@ -15,6 +15,10 @@
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-list"></i> Pull Sheets</a>
             <a href="{{url('competition/judge_sheets/') . '/' . $competition->id}}" target="_blank"
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-gavel"></i> Judge Sheets</a>
+            <a href="{{url('competition/category_xref/') . '/' . $competition->id}}" target="_blank"
+                class="btn btn-lg btn-default"><i class="fa fa-btn fa-user"></i> Category User List</a>
+            <a href="{{url('competition/user_entries/') . '/' . $competition->id}}" target="_blank"
+                class="btn btn-lg btn-default"><i class="fa fa-btn fa-th-list"></i> User Entries</a>
         </div>
     </div>
     <div class="row">

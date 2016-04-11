@@ -101,4 +101,45 @@ class CompetitionRepository {
             ->orderBy('entries.label')
             ->get();
     }
+
+    public function userEntryXref(Competition $competition, JudgingCategory $category) {
+        return DB::table('entries')
+            ->join('judging_category_mappings', 'entries.style_id', '=', 'judging_category_mappings.style_id')
+            ->join('judging_categories', 'judging_category_mappings.judging_category_id', '=', 'judging_categories.id')
+            ->join('styles', 'entries.style_id', '=', 'styles.id')
+            ->join('users', 'entries.user_id', '=', 'users.id')
+            ->select('entries.*', 'users.email', 'users.first_name', 'users.last_name', 'judging_categories.ordinal', 'judging_categories.name', 'styles.subcategory')
+            ->where([
+                ['entries.competition_id', $competition->id],
+                ['judging_categories.id',  $category->id],
+                ['entries.received', '>', 0]
+            ])
+            ->orderBy('judging_category_mappings.sort_order', 'asc')
+            ->orderBy('entries.label')
+            ->get();
+    }
+
+    public function userEntries(Competition $competition) {
+        // get a list of all users that have received entries in this competition
+        $entries = DB::table('users')
+            ->join('entries', 'users.id', '=', 'entries.user_id')
+            ->join('styles', 'entries.style_id', '=', 'styles.id')
+            ->select('users.email', 'users.first_name', 'users.last_name', 'entries.*', 'styles.subcategory')
+            ->where([
+                ['entries.competition_id', $competition->id],
+                ['entries.received', '>', 0]
+            ])
+            ->orderBy('entries.label')
+            ->get();
+
+        $userXref = [];
+
+        foreach ($entries as $entry) {
+            if (!isset($userXref[$entry->email])) {
+                $userXref[$entry->email] = ['name' => $entry->last_name . ', ' . $entry->first_name, 'entries' => []];
+            }
+            $userXref[$entry->email]['entries'][$entry->id] = $entry;
+        }
+        return $userXref;
+    }
 }

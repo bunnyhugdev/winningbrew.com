@@ -56,4 +56,6 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::get('/competition/pull_sheets/{competition}', 'CompetitionController@pull_sheets');
     Route::get('/competition/judge_sheets/{competition}', 'CompetitionController@judge_sheets');
+    Route::get('/competition/category_xref/{competition}', 'CompetitionController@entrantsForCategory');
+    Route::get('/competition/user_entries/{competition}', 'CompetitionController@entriesForEntrant');
 });
