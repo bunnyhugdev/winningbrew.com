@@ -19,8 +19,8 @@
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-user"></i> Category User List</a>
             <a href="{{url('competition/user_entries/') . '/' . $competition->id}}" target="_blank"
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-th-list"></i> User Entries</a>
-            <a href="{{url('competition/results/') . '/' . $competition->id}}" target="_blank"
-                class="btn btn-lg btn-default"><i class="fa fa-btn fa-star-o"></i> Enter Results</a>    
+            <a href="{{url('competition/results/') . '/' . $competition->id}}"
+                class="btn btn-lg btn-default"><i class="fa fa-btn fa-star-o"></i> Enter Results</a>
         </div>
     </div>
     <div class="row">
