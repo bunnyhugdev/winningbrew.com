@@ -28,4 +28,8 @@ class Competition extends Model
     public function judgingGuide() {
         return $this->belongsTo(JudgingGuide::class);
     }
+
+    public function results() {
+        return $this->hasMany(Result::class);
+    }
 }

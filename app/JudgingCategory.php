@@ -17,4 +17,8 @@ class JudgingCategory extends Model
     public function mappings() {
         return $this->hasMany(JudgingCategoryMapping::class);
     }
+
+    public function results() {
+        return $this->hasMany(Result::class);
+    }
 }

@@ -120,7 +120,6 @@ class CompetitionRepository {
     }
 
     public function userEntries(Competition $competition) {
-        // get a list of all users that have received entries in this competition
         $entries = DB::table('users')
             ->join('entries', 'users.id', '=', 'entries.user_id')
             ->join('styles', 'entries.style_id', '=', 'styles.id')
@@ -142,4 +141,6 @@ class CompetitionRepository {
         }
         return $userXref;
     }
+
+    
 }

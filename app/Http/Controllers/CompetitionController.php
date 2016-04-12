@@ -12,6 +12,7 @@ use App\Repositories\CompetitionRepository;
 
 use App\Style;
 use App\Entry;
+use App\JudgingCategory;
 
 class CompetitionController extends Controller
 {
@@ -161,5 +162,29 @@ class CompetitionController extends Controller
             'users' => $this->competitions->userEntries($competition),
             'competition' => $competition
         ]);
+    }
+
+    public function resultCategories(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        return view('competitions.result-categories', [
+            'competition' => $competition
+        ]);
+    }
+
+    public function entriesForCategoryResults(Request $request, Competition $competition, JudgingCategory $category) {
+        $this->authorize('admin', $competition);
+        return view('competitions.category-results', [
+            'competition' => $competition,
+            'category' => $category,
+            'entries' => $this->competitions->entriesForCategory($competition, $category)
+        ]);
+    }
+
+    public function score(Request $request, Entry $entry) {
+        $this->authorize('admin', $entry->competition);
+        $entry->update([
+            'score' => $request->result
+        ]);
+        return response()->json(['status' => 'success', 'score' => $request->result]);
     }
 }

@@ -58,4 +58,8 @@ Route::group(['middleware' => ['web']], function () {
     Route::get('/competition/judge_sheets/{competition}', 'CompetitionController@judge_sheets');
     Route::get('/competition/category_xref/{competition}', 'CompetitionController@entrantsForCategory');
     Route::get('/competition/user_entries/{competition}', 'CompetitionController@entriesForEntrant');
+
+    Route::get('/competition/results/{competition}', 'CompetitionController@resultCategories');
+    Route::get('/competition/results/{competition}/{category}', 'CompetitionController@entriesForCategoryResults');
+    Route::post('/competition/result/{entry}', 'CompetitionController@score');
 });
