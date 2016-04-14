@@ -8,9 +8,9 @@
             <h3>Results for {{ $category->ordinal . ' - ' . $category->name }}</h3>
         </div>
     </div>
-    @foreach ($entries as $entry)
     <div class="row">
         <div class="col-xs-6">
+            @foreach ($entries as $entry)
             <p>{{ $entry->subcategory . '-' . $entry->label }}</p>
             <p>
                 <form class="result-form" method="post" action="{{ url('/competition/result') . '/' . $entry->id }}">
@@ -21,9 +21,62 @@
                     </div>
                 </form>
             </p>
+            @endforeach
+        </div>
+        <div class="col-xs-6">
+            <form class="place-form" method="post" action="{{ url('/competition/place') . '/' . $competition->id . '/' . $category->id }}">
+                {!! csrf_field() !!}
+                <p>
+                    <div class="form-group">
+                        <label for="firstplace">Gold</label>
+                        <select id="firstplace" class="form-control" name="first_place">
+                            <option></option>
+                            @foreach ($entries as $entry)
+                                <?php $selected = ""; ?>
+                                @if ($results->firstPlace->id == $entry->id)
+                                    <?php $selected = "selected"; ?>
+                                @endif
+                                <option value="{{ $entry->id }}" {{ $selected }}>{{ $entry->subcategory . '-' . $entry->label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </p>
+                <p>
+                    <div class="form-group">
+                        <label for="firstplace">Silver</label>
+                        <select id="secondplace" class="form-control" name="second_place">
+                            <option></option>
+                            @foreach ($entries as $entry)
+                                <?php $selected = ""; ?>
+                                @if ($results->secondPlace->id == $entry->id)
+                                    <?php $selected = "selected"; ?>
+                                @endif
+                                <option value="{{ $entry->id }}" {{ $selected }}>{{ $entry->subcategory . '-' . $entry->label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </p>
+                <p>
+                    <div class="form-group">
+                        <label for="firstplace">Bronze</label>
+                        <select id="thirdplace" class="form-control" name="third_place">
+                            <option></option>
+                            @foreach ($entries as $entry)
+                                <?php $selected = ""; ?>
+                                @if ($results->thirdPlace->id == $entry->id)
+                                    <?php $selected = "selected"; ?>
+                                @endif
+                                <option value="{{ $entry->id }}" {{ $selected }}>{{ $entry->subcategory . '-' . $entry->label }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </p>
+                <p>
+                    <input type="submit" class="btn btn-primary" value="Save Results">
+                </p>
+            </form>
         </div>
     </div>
-    @endforeach
 </div>
 @endsection
 

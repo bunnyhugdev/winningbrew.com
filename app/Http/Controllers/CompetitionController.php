@@ -13,6 +13,7 @@ use App\Repositories\CompetitionRepository;
 use App\Style;
 use App\Entry;
 use App\JudgingCategory;
+use App\Result;
 
 class CompetitionController extends Controller
 {
@@ -176,7 +177,11 @@ class CompetitionController extends Controller
         return view('competitions.category-results', [
             'competition' => $competition,
             'category' => $category,
-            'entries' => $this->competitions->entriesForCategory($competition, $category)
+            'entries' => $this->competitions->entriesForCategory($competition, $category),
+            'results' => Result::where([
+                'competition_id' => $competition->id,
+                'judging_category_id' => $category->id
+            ])->first()
         ]);
     }
 
@@ -186,5 +191,20 @@ class CompetitionController extends Controller
             'score' => $request->result
         ]);
         return response()->json(['status' => 'success', 'score' => $request->result]);
+    }
+
+    public function place(Request $request, Competition $competition, JudgingCategory $category) {
+        $this->authorize('admin', $competition);
+
+        $result = Result::firstOrNew([
+            'competition_id' => $competition->id,
+            'judging_category_id' => $category->id
+        ]);
+        $result->first_entry_id = $request->first_place;
+        $result->second_entry_id = $request->second_place;
+        $result->third_entry_id = $request->third_place;
+
+        $result->save();
+        return redirect('/competition/results/' . $competition->id . '/' . $category->id);
     }
 }
