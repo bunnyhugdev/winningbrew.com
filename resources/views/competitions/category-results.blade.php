@@ -33,7 +33,7 @@
                             <option></option>
                             @foreach ($entries as $entry)
                                 <?php $selected = ""; ?>
-                                @if ($results->firstPlace->id == $entry->id)
+                                @if (isset($results) && $results->first_entry_id == $entry->id)
                                     <?php $selected = "selected"; ?>
                                 @endif
                                 <option value="{{ $entry->id }}" {{ $selected }}>{{ $entry->subcategory . '-' . $entry->label }}</option>
@@ -48,7 +48,7 @@
                             <option></option>
                             @foreach ($entries as $entry)
                                 <?php $selected = ""; ?>
-                                @if ($results->secondPlace->id == $entry->id)
+                                @if (isset($results) && $results->second_entry_id == $entry->id)
                                     <?php $selected = "selected"; ?>
                                 @endif
                                 <option value="{{ $entry->id }}" {{ $selected }}>{{ $entry->subcategory . '-' . $entry->label }}</option>
@@ -63,7 +63,7 @@
                             <option></option>
                             @foreach ($entries as $entry)
                                 <?php $selected = ""; ?>
-                                @if ($results->thirdPlace->id == $entry->id)
+                                @if (isset($results) && $results->third_entry_id == $entry->id)
                                     <?php $selected = "selected"; ?>
                                 @endif
                                 <option value="{{ $entry->id }}" {{ $selected }}>{{ $entry->subcategory . '-' . $entry->label }}</option>

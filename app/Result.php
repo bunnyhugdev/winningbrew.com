@@ -30,4 +30,16 @@ class Result extends Model
     public function thirdPlace() {
         return $this->belongsTo(Entry::class, 'third_entry_id');
     }
+
+    public function setFirstEntryIdAttribute($value) {
+        $this->attributes['first_entry_id'] = empty($value) ? null : $value;
+    }
+
+    public function setSecondEntryIdAttribute($value) {
+        $this->attributes['second_entry_id'] = empty($value) ? null : $value;
+    }
+
+    public function setThirdEntryIdAttribute($value) {
+        $this->attributes['third_entry_id'] = empty($value) ? null : $value;
+    }
 }
