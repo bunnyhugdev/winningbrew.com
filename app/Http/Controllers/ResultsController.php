@@ -31,21 +31,17 @@ class ResultsController extends Controller
         $boty = [];
 
         foreach ($winners as $category) {
-            Log::info($category->first_fname);
-            Log::info($category->first_lname);
-            Log::info($category->first_id);
-            // gold
-            $this->addOtyPts($category->first_club_name, $coty, 'G');
-            $this->addOtyPts($category->first_id, $boty, 'G', $category->first_fname . ' ' . $category->first_lname);
-
-            // silver
-            $this->addOtyPts($category->second_club_name, $coty, 'S');
-            $this->addOtyPts($category->second_id, $boty, 'S', $category->second_fname . ' ' . $category->second_lname);
-
-            // bronze
-            $this->addOtyPts($category->third_club_name, $coty, 'B');
-            $this->addOtyPts($category->third_id, $boty, 'B', $category->third_fname . ' ' . $category->third_lname);
-
+            // club of the Year
+            if ($category->include_coty) {
+                $this->addOtyPts($category->first_club_name, $coty, 'G');
+                $this->addOtyPts($category->second_club_name, $coty, 'S');
+                $this->addOtyPts($category->third_club_name, $coty, 'B');
+            }
+            if ($category->include_boty) {
+                $this->addOtyPts($category->first_id, $boty, 'G', $category->first_fname . ' ' . $category->first_lname);
+                $this->addOtyPts($category->second_id, $boty, 'S', $category->second_fname . ' ' . $category->second_lname);
+                $this->addOtyPts($category->third_id, $boty, 'B', $category->third_fname . ' ' . $category->third_lname);
+            }
         }
         //Log::info($boty);
         $this->totalOty($coty);
@@ -90,6 +86,9 @@ class ResultsController extends Controller
     }
 
     protected function addOtyPts($identifier, &$standings, $place, $name = null) {
+        if (strlen($identifier) == 0) {
+            $identifier = "None";
+        }
         if (!isset($standings[$identifier])) {
             $standings[$identifier] = [
                 'G' => 0,

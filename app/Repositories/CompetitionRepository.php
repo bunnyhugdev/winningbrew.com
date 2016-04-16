@@ -158,8 +158,9 @@ class CompetitionRepository {
             ->leftJoin('clubs as second_club', 'second_user.club_id', '=', 'second_club.id')
             ->leftJoin('clubs as third_club', 'third_user.club_id', '=', 'third_club.id')
             ->select('results.*', 'judging_categories.ordinal', 'judging_categories.name',
+                'judging_categories.include_boty', 'judging_categories.include_coty',
                 'first.comments as first_comments',
-                'first_user.id as first_id', 'second_user.id as second_id', 'third_user.id as third_id',   
+                'first_user.id as first_id', 'second_user.id as second_id', 'third_user.id as third_id',
                 'first.name as first_name', 'second.name as second_name', 'third.name as third_name',
                 'first.label as first_label', 'second.label as second_label', 'third.label as third_label',
                 'first_style.subcategory as first_subcat', 'second_style.subcategory as second_subcat', 'third_style.subcategory as third_subcat',
