@@ -9,6 +9,8 @@ use App\Http\Requests;
 use App\Competition;
 use App\Repositories\CompetitionRepository;
 
+use Log;
+
 class ResultsController extends Controller
 {
     protected $competitions;
@@ -19,7 +21,7 @@ class ResultsController extends Controller
 
     public function results(Request $request, Competition $competition) {
         if (null == $request->user() || !policy($competition)->admin($request->user(), $competition)) {
-            if (!isset($competition->finalized) || ($competition->finalized > time())) {
+            if (!isset($competition->finalized) || (strtotime($competition->finalized) > time())) {
                 return redirect('/');
             }
         }
