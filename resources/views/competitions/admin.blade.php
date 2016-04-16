@@ -21,6 +21,8 @@
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-th-list"></i> User Entries</a>
             <a href="{{url('competition/results/') . '/' . $competition->id}}"
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-star-o"></i> Enter Results</a>
+            <a href="{{url('competition/finalize/') . '/' . $competition->id}}"
+                class="btn btn-lg btn-default"><i class="fa fa-btn fa-users"></i> Publish Results</a>
         </div>
     </div>
     <div class="row">

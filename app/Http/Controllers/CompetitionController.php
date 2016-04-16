@@ -15,6 +15,8 @@ use App\Entry;
 use App\JudgingCategory;
 use App\Result;
 
+use Log;
+
 class CompetitionController extends Controller
 {
     protected $competitions;
@@ -224,5 +226,15 @@ class CompetitionController extends Controller
             'winners' => $this->competitions->winners($competition),
             'competition' => $competition
         ]);
+    }
+
+    public function finalize(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+
+        $competition->update([
+            'finalized' => strftime('%Y-%m-%d %H:%M:%S')
+        ]);
+
+        return redirect('/competition/admin/' . $competition->id);
     }
 }

@@ -65,4 +65,6 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('/competition/place/{competition}/{category}', 'CompetitionController@place');
     Route::get('/competition/bos-sheet/{competition}', 'CompetitionController@bosPullSheets');
     Route::get('/competition/bos-judge-sheet/{competition}', 'CompetitionController@bosJudgeSheets');
+    Route::get('/competition/finalize/{competition}', 'CompetitionController@finalize');
+    Route::get('/competition/winners/{competition}', 'ResultsController@results');
 });

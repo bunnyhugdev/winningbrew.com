@@ -151,10 +151,27 @@ class CompetitionRepository {
             ->join('styles as first_style', 'first.style_id', '=', 'first_style.id')
             ->join('styles as second_style', 'second.style_id', '=', 'second_style.id')
             ->join('styles as third_style', 'third.style_id', '=', 'third_style.id')
+            ->join('users as first_user', 'first.user_id', '=', 'first_user.id')
+            ->join('users as second_user', 'second.user_id', '=', 'second_user.id')
+            ->join('users as third_user', 'third.user_id', '=', 'third_user.id')
+            ->leftJoin('clubs as first_club', 'first_user.club_id', '=', 'first_club.id')
+            ->leftJoin('clubs as second_club', 'second_user.club_id', '=', 'second_club.id')
+            ->leftJoin('clubs as third_club', 'third_user.club_id', '=', 'third_club.id')
             ->select('results.*', 'judging_categories.ordinal', 'judging_categories.name',
                 'first.comments as first_comments',
+                'first.name as first_name', 'second.name as second_name', 'third.name as third_name',
                 'first.label as first_label', 'second.label as second_label', 'third.label as third_label',
-                'first_style.subcategory as first_subcat', 'second_style.subcategory as second_subcat', 'third_style.subcategory as third_subcat')
+                'first_style.subcategory as first_subcat', 'second_style.subcategory as second_subcat', 'third_style.subcategory as third_subcat',
+                'first_style.subcategory_name as first_style_name',
+                'second_style.subcategory_name as second_style_name',
+                'third_style.subcategory_name as third_style_name',
+                'first_user.first_name as first_fname',
+                'first_user.last_name as first_lname',
+                'second_user.first_name as second_fname',
+                'second_user.last_name as second_lname',
+                'third_user.first_name as third_fname',
+                'third_user.last_name as third_lname',
+                'first_club.name as first_club_name', 'second_club.name as second_club_name', 'third_club.name as third_club_name')
             ->where('results.competition_id', $competition->id)
             ->orderBy('judging_categories.sort_order')
             ->get();
