@@ -9,6 +9,7 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
+            <h2>Category Results</h2>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -41,6 +42,52 @@
                             {{ $category->third_subcat . '-' . $category->third_style_name }}
                         <td>
                     </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <h2>Club of the Year Results</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Club</th>
+                        <th>Gold</th>
+                        <th>Silver</th>
+                        <th>Bronze</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($coty as $club => $result)
+                        <tr>
+                            <td>{{ $club }}</td>
+                            <td>{{ $result['G'] }}</td>
+                            <td>{{ $result['S'] }}</td>
+                            <td>{{ $result['B'] }}</td>
+                            <td>{{ $result['total'] }}</td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <h2>Brewer of the Year Results</h2>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Brewer</th>
+                        <th>Gold</th>
+                        <th>Silver</th>
+                        <th>Bronze</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($boty as $id => $result)
+                        <tr>
+                            <td>{{ $result['name'] }}</td>
+                            <td>{{ $result['G'] }}</td>
+                            <td>{{ $result['S'] }}</td>
+                            <td>{{ $result['B'] }}</td>
+                            <td>{{ $result['total'] }}</td>
+                        </tr>
                     @endforeach
                 </tbody>
             </table>
