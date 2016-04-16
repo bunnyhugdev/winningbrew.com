@@ -207,4 +207,13 @@ class CompetitionController extends Controller
         $result->save();
         return redirect('/competition/results/' . $competition->id . '/' . $category->id);
     }
+
+    public function bosPullSheets(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+
+        return view('competitions.bos-pull-sheets', [
+            'winners' => $this->competitions->winners($competition),
+            'competition' => $competition
+        ]);
+    }
 }
