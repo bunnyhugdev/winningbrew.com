@@ -11,6 +11,8 @@
                 class="btn btn-default"><i class="fa fa-btn fa-trophy"></i> Best of Show Pull Sheet</a>
             <a href="{{ url('/competition/bos-judge-sheet/') . '/' . $competition->id }}" target="_blank"
                 class="btn btn-default"><i class="fa fa-btn fa-gavel"></i> Best of Show Judge Sheet</a>
+            <a href="{{ url('/competition/winners/') . '/' . $competition->id }}" target="_blank"
+                class="btn btn-default"><i class="fa fa-btn fa-trophy"></i> View Winners</a>
         </div>
     </div>
 
