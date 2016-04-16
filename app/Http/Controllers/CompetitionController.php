@@ -216,4 +216,13 @@ class CompetitionController extends Controller
             'competition' => $competition
         ]);
     }
+
+    public function bosJudgeSheets(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+
+        return view('competitions.bos-judge-sheets', [
+            'winners' => $this->competitions->winners($competition),
+            'competition' => $competition
+        ]);
+    }
 }

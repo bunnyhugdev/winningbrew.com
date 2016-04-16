@@ -152,6 +152,7 @@ class CompetitionRepository {
             ->join('styles as second_style', 'second.style_id', '=', 'second_style.id')
             ->join('styles as third_style', 'third.style_id', '=', 'third_style.id')
             ->select('results.*', 'judging_categories.ordinal', 'judging_categories.name',
+                'first.comments as first_comments',
                 'first.label as first_label', 'second.label as second_label', 'third.label as third_label',
                 'first_style.subcategory as first_subcat', 'second_style.subcategory as second_subcat', 'third_style.subcategory as third_subcat')
             ->where('results.competition_id', $competition->id)

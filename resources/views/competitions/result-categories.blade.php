@@ -8,7 +8,9 @@
         </div>
         <div class="col-xs-12">
             <a href="{{ url('/competition/bos-sheet/') . '/' . $competition->id }}" target="_blank"
-                class="btn btn-default"><i class="fa fa-btn fa-check-trophy"></i> Best of Show Pull Sheet</a>
+                class="btn btn-default"><i class="fa fa-btn fa-trophy"></i> Best of Show Pull Sheet</a>
+            <a href="{{ url('/competition/bos-judge-sheet/') . '/' . $competition->id }}" target="_blank"
+                class="btn btn-default"><i class="fa fa-btn fa-gavel"></i> Best of Show Judge Sheet</a>
         </div>
     </div>
 
