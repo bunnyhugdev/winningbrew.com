@@ -27,7 +27,11 @@
         }
         .label {
             display: inline-block;
-            width: 150px;
+            width: 150px
+        }
+        .category {
+            display: inline-block;
+            width: 250px;
         }
         .heading span {
             font-weight: bold;
@@ -40,7 +44,7 @@
         <h3>Best in Show Pull Sheet</h3>
         @foreach ($winners as $winner)
             <div class="entry">
-                <span class="checkbox"></span><span class="label">{{ $winner->first_subcat . '-' . $winner->first_label }}</span>
+                <span class="checkbox"></span><span class="category">{{ $winner->ordinal . '. ' . $winner->name }}</span><span class="label">{{ $winner->first_subcat . '-' . $winner->first_label }}</span>
             </div>
         @endforeach
     </div>
