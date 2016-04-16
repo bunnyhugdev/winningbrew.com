@@ -27,7 +27,7 @@
         }
         .label {
             display: inline-block;
-            width: 150px;
+            width: 350px;
         }
         .heading span {
             font-weight: bold;
