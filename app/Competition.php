@@ -11,7 +11,10 @@ class Competition extends Model
         'entry_open', 'entry_close', 'judge_start', 'judge_end',
         'result_at', 'ship_address1', 'ship_address2', 'ship_city',
         'ship_province', 'ship_postal_code', 'contact_email', 'creator',
-        'finalized'
+        'finalized',
+        'first_bos_id', 'second_bos_id', 'third_bos_id',
+        'first_mmoy_id', 'second_mmoy_id', 'third_mmoy_id',
+        'first_cmoy_id', 'second_cmoy_id', 'third_cmoy_id',
     ];
 
     public function admins() {
@@ -32,5 +35,35 @@ class Competition extends Model
 
     public function results() {
         return $this->hasMany(Result::class);
+    }
+
+    public function firstBos() {
+        return $this->belongsTo(Entry::class, 'first_bos_id');
+    }
+    public function secondBos() {
+        return $this->belongsTo(Entry::class, 'second_bos_id');
+    }
+    public function thirdBos() {
+        return $this->belongsTo(Entry::class, 'third_bos_id');
+    }
+
+    public function firstMmoy() {
+        return $this->belongsTo(Entry::class, 'first_mmoy_id');
+    }
+    public function secondMmoy() {
+        return $this->belongsTo(Entry::class, 'second_mmoy_id');
+    }
+    public function thirdMmoy() {
+        return $this->belongsTo(Entry::class, 'third_mmoy_id');
+    }
+
+    public function firstCmoy() {
+        return $this->belongsTo(Entry::class, 'first_cmoy_id');
+    }
+    public function secondCmoy() {
+        return $this->belongsTo(Entry::class, 'second_cmoy_id');
+    }
+    public function thirdCmoy() {
+        return $this->belongsTo(Entry::class, 'third_cmoy_id');
     }
 }
