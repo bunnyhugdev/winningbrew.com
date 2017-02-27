@@ -9,7 +9,7 @@
         </div>
         @foreach ($entries as $entry)
         <div class="col-md-4 col-xs-6 card">
-            <p>{{ $entry->subcategory . '-' . $entry->label }}</p>
+            <p>{{ $entry->printLabel() }}</p>
             <p>
                 <form class="receive-form" method="post" action="{{ url('/receive/entry') . '/' . $entry->id }}">
                     {!! csrf_field() !!}

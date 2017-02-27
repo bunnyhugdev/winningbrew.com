@@ -73,7 +73,14 @@ class CompetitionRepository {
             ->groupBy('clubs.name')
             ->get();
     }
-
+    
+    public function getEntriesForStyle(Competition $competition, Style $style) {
+        return Entry::where([
+            'competition_id' => $competition->id,
+            'style_id' => $style->id
+        ])->orderBy('label')->get();
+    }
+    
     public function entriesForStyle(Competition $competition, Style $style) {
         return DB::table('entries')
             ->join('styles', 'entries.style_id', '=', 'styles.id')

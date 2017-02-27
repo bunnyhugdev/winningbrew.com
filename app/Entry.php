@@ -22,4 +22,9 @@ class Entry extends Model
     public function style() {
         return $this->belongsTo(Style::class);
     }
+    
+    public function printLabel() {
+        return $this->style->mappingForJudgingGuide($this->competition->judging_guide_id)->judgingCategory->ordinal .
+            ' - ' . $this->label . ' - ' . $this->style->subcategory;
+    }
 }

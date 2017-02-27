@@ -24,8 +24,8 @@
             <p>Name: {{ $entry->name }} /
                 Style: {{ $entry->style->subcategory . ' - ' . $entry->style->subcategory_name }}</p>
             <div class="entry-labels">
-                <span class="label">{{ $entry->style->subcategory . '-' . $entry->label }}</span>
-                <span class="label">{{ $entry->style->subcategory . '-' . $entry->label }}</span>
+                <span class="label">{{ $entry->printLabel() }}</span>
+                <span class="label">{{ $entry->printLabel() }}</span>
             </div>
         </div>
     @endforeach
