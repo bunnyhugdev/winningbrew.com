@@ -114,15 +114,11 @@ class CompetitionController extends Controller
         
         foreach ($competition->judgingGuide->categories as $category) {
             // get the styles for this judging category
-            \Log::info('Category: ' . $category->ordinal);
             $categoryEntries = collect([]);
-            $category->mappings()->each(function($mapping, $key) use ($categoryEntries, $competition) {
+            $category->mappings->each(function($mapping, $key) use ($categoryEntries, $competition) {
                 $style = $mapping->style;
-                \Log::info('mapping: ' . $mapping->id . ' ---> ' . $style->subcategory);
                 $categoryEntries->put($style->subcategory . '-' . $style->subcategory_name,
                     $this->competitions->getEntriesForStyle($competition, $style));
-                \Log::info("Entry Count: " . $this->competitions->getEntriesForStyle($competition, $style)->count());
-                \Log::info(var_export($categoryEntries, true));
             });
             
             $all_entries[$category->ordinal . ' - ' . $category->name] = $categoryEntries;
