@@ -11,7 +11,7 @@ class Style extends Model
     }
     
     public function mappingForJudgingGuide($judgingGuideId) {
-        return $this->mappings->first(function($key, $item) use ($judgingGuideId) {
+        return $this->mappings->first(function($item, $key) use ($judgingGuideId) {
             return $item->judgingCategory->judging_guide_id === $judgingGuideId;
         });
     }

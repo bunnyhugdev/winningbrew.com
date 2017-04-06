@@ -2,6 +2,9 @@
 
 return [
 
+    // added in 5.3
+    'name' => env('APP_NAME', 'WinningBrew.com'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment
@@ -147,7 +150,9 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-
+        // Upgrade to 5.3
+    //    Illuminate\Notifications\NotificationServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -155,6 +160,8 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        // Upgrade to 5.3
+        App\Providers\BroadcastServiceProvider::class,
 
     ],
 
@@ -201,6 +208,9 @@ return [
         'URL'       => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View'      => Illuminate\Support\Facades\View::class,
+        
+        // Upgrade to 5.3
+        'Notification' => Illuminate\Support\Facades\Notification::class,
 
     ],
 

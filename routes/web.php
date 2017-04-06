@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -26,10 +22,11 @@ Route::get('/', function () {
 |
 */
 
+Auth::routes();
+// TODO: Can remove this if we convert the logout method to send POST request
+Route::get('/logout', 'Auth\LoginController@logout');
 
-Route::group(['middleware' => ['web']], function () {
-    Route::auth();
-
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/entries', 'EntryController@index');
     Route::post('/entry', 'EntryController@create');
     Route::get('/entry/{entry}', 'EntryController@view');
