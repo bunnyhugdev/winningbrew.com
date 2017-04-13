@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use App\Competition;
 use App\Repositories\CompetitionRepository;
+use App\Repositories\StyleRepository;
 
 use App\Style;
 use App\Entry;
@@ -34,8 +35,16 @@ class CompetitionController extends Controller
             'competitions' => $competitions
         ]);
     }
-
+    
     public function create(Request $request) {
+        $styleRepo = new StyleRepository;
+        
+        return view('competitions.create', [
+            'guides' => $styleRepo->getGuides(),
+        ]);
+    }
+
+    public function store(Request $request) {
         $this->validate($request, [
             'name' => 'required|max:255'
         ]);
@@ -54,6 +63,10 @@ class CompetitionController extends Controller
             'ship_city' => $request->ship_city,
             'ship_province' => $request->ship_province,
             'ship_postal_code' => $request->ship_postal_code,
+            'guide_id' => $request->guide,
+            'cost_per_entry' => $request->cost,
+            'paypal_client_id' => $request->paypal_client_id,
+            'paypal_secret' => $request->paypal_secret,
         ]);
 
         return redirect('/competitions');

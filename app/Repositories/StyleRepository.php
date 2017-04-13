@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Competition;
+use App\Guide;
 
 class StyleRepository {
     const BEER = 'beer';
@@ -13,4 +14,7 @@ class StyleRepository {
         return $competition->guide->styles()->orderBy('id')->get();
     }
 
+    public function getGuides() {
+        return Guide::all();
+    }
 }

@@ -30,6 +30,7 @@
         </div>
     @endforeach
     <h3>Please Ship Entries to:</h3>
+    <!-- TODO: Use shipping address from DB -->
     <p>Bushwakker Brewing Co.<br>
         Attn: ALES Open<br>
         2206 Dewdney Ave.<br>

@@ -11,6 +11,7 @@ class Competition extends Model
         'entry_open', 'entry_close', 'judge_start', 'judge_end',
         'result_at', 'ship_address1', 'ship_address2', 'ship_city',
         'ship_province', 'ship_postal_code', 'contact_email', 'creator',
+        'guide_id', 'cost_per_entry', 'paypal_client_id', 'paypal_secret',
         'finalized',
         'first_bos_id', 'second_bos_id', 'third_bos_id',
         'first_mmoy_id', 'second_mmoy_id', 'third_mmoy_id',
