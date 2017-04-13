@@ -123,6 +123,12 @@
                                 <input type="text" class="form-control" id="cost" name="cost">
                             </div>
                         </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="cost_per_entrant" class="control-label">Cost per Entrant</label>
+                                <input type="text" class="form-control" id="cost_per_entrant" name="cost_per_entrant">
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="paypal_client_id" class="control-label">PayPal Client ID</label>

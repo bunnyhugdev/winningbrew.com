@@ -31,9 +31,9 @@
     @endforeach
     <h3>Please Ship Entries to:</h3>
     <!-- TODO: Use shipping address from DB -->
-    <p>Bushwakker Brewing Co.<br>
-        Attn: ALES Open<br>
-        2206 Dewdney Ave.<br>
-        Regina, SK, S4R 1H3</p>
+     <p>{{ $competition->ship_location_name }}<br>
+        {{ $competition->ship_address1 }}<br>
+        @if($competition->ship_address2) {{ $competition->ship_address2 }}<br> @endif
+        {{ $competition->ship_city }}, {{ $competition->ship_province }}, {{ $competition->ship_postal_code }}
 </body>
 </html>

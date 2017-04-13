@@ -19,7 +19,7 @@
     <div class="row">
         <div class="col-lg-4 col-md-6 col-sm-12">
             <h2>Register a Brew</h2>
-
+            @if($competition->isRegistrationOpen())
             <form action={{ url('entry') }} method="POST">
                 {!! csrf_field() !!}
 
@@ -49,6 +49,9 @@
                     <i class="fa fa-btn fa-plus"></i> Add entry
                 </button>
             </form>
+            @else
+                <p>Registration for this competition is not open</p>
+            @endif
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12">
             <h2>Entries <a href="{{ url('/entries/labels') }}" target="_blank"
@@ -63,6 +66,7 @@
                     @if (isset($entry->cobrewer) && strlen($entry->cobrewer) > 0)
                     <p>Co-brewed with {{ $entry->cobrewer }}</p>
                     @endif
+                    @if($competition->isRegistrationOpen())
                     <a href="{{ url('/entry') . '/' . $entry->id }}" class="btn btn-default btn-xs">
                         <i class="fa fa-btn fa-pencil"></i> Update
                     </a>
@@ -73,7 +77,8 @@
                             <i class="fa fa-btn fa-times"></i> Delete
                         </button>
                     </form>
-
+                    @endif
+                
                 </li>
             @endforeach
             </ul>

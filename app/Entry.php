@@ -24,7 +24,11 @@ class Entry extends Model
     }
     
     public function printLabel() {
-        return $this->style->mappingForJudgingGuide($this->competition->judging_guide_id)->judgingCategory->ordinal .
-            ' - ' . $this->label . ' - ' . $this->style->subcategory;
+        if ($this->competition->labels_include_judging_category) {
+            return $this->style->mappingForJudgingGuide($this->competition->judging_guide_id)->judgingCategory->ordinal .
+                ' - ' . $this->label . ' - ' . $this->style->subcategory;
+        } else {
+            return $this->style->subcategory . ' - ' . $this->label;
+        }
     }
 }

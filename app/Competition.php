@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Competition extends Model
@@ -11,7 +12,8 @@ class Competition extends Model
         'entry_open', 'entry_close', 'judge_start', 'judge_end',
         'result_at', 'ship_address1', 'ship_address2', 'ship_city',
         'ship_province', 'ship_postal_code', 'contact_email', 'creator',
-        'guide_id', 'cost_per_entry', 'paypal_client_id', 'paypal_secret',
+        'guide_id', 'cost_per_entry', 'cost_per_entrant',
+        'paypal_client_id', 'paypal_secret',
         'finalized',
         'first_bos_id', 'second_bos_id', 'third_bos_id',
         'first_mmoy_id', 'second_mmoy_id', 'third_mmoy_id',
@@ -66,5 +68,12 @@ class Competition extends Model
     }
     public function thirdCmoy() {
         return $this->belongsTo(Entry::class, 'third_cmoy_id');
+    }
+    
+    public function isRegistrationOpen() {
+        $now = Carbon::now();
+        $open = Carbon::parse($this->entry_open);
+        $close = Carbon::parse($this->entry_close);
+        return $now->between($open, $close);
     }
 }

@@ -65,6 +65,7 @@ class CompetitionController extends Controller
             'ship_postal_code' => $request->ship_postal_code,
             'guide_id' => $request->guide,
             'cost_per_entry' => $request->cost,
+            'cost_per_entrant' => $request->cost_per_entrant,
             'paypal_client_id' => $request->paypal_client_id,
             'paypal_secret' => $request->paypal_secret,
         ]);

@@ -16,8 +16,7 @@ class PaymentRepository {
         ])->count();
 
         $paid = $this->amountPaid($user, $competition);
-        // TODO: This is a hack for ALES. Need a more flexible cost structure
-        return ($entries * $competition->cost_per_entry) + 1 - $paid;
+        return ($entries * $competition->cost_per_entry) + $competition->cost_per_entrant - $paid;
     }
 
     public function amountPaid(User $user, Competition $competition) {

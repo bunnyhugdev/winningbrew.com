@@ -40,9 +40,9 @@
                 <button type="submit" class="btn btn-primary">
                     <i class="fa fa-btn fa-floppy-o"></i> Update entry
                 </button>
-                <button type="button" class="btn btn-default">
+                <a href={{ url('/entries') }} class="btn btn-default">
                     <i class="fa fa-btn fa-arrow-left"></i> Cancel
-                </button>
+                </a>
             </form>
         </div>
     </div>
