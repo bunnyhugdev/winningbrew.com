@@ -6,11 +6,17 @@ use App\Competition;
 use App\Entry;
 use App\Payment;
 use App\Style;
+use App\User;
 use App\JudgingCategory;
 
 use DB;
 
 class CompetitionRepository {
+    
+    public function adminOfPast(User $user) {
+        return Competition::complete()->administeredBy($user)->get();
+    }
+    
     public function upcoming() {
         return Competition::where('result_at', '>=', date('Y-m-d'))
             ->orderBy('entry_close', 'asc')

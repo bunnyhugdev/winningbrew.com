@@ -76,4 +76,18 @@ class Competition extends Model
         $close = Carbon::parse($this->entry_close);
         return $now->between($open, $close);
     }
+    
+    public function scopeAdministeredBy($query, $user) {
+        return $query
+            ->where('creator', $user->id)
+            ->orWhere(function ($qry) use ($user) {
+                $qry->whereHas('admins', function($q) use ($user) {
+                    $q->where('user_id', $user->id);
+                });
+            });
+    }
+    
+    public function scopeComplete($query) {
+        return $query->where('result_at', '<', Carbon::now());
+    }
 }

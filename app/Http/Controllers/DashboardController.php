@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -20,9 +21,10 @@ class DashboardController extends Controller
     }
 
     public function index(Request $request) {
-
+        $user = Auth::user();
         return view('dashboard.index', [
-            'upcoming' => $this->competitions->upcoming()
+            'upcoming' => $this->competitions->upcoming(),
+            'past' => $this->competitions->adminOfPast($user)
         ]);
     }
 }
