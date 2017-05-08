@@ -65,4 +65,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/competition/finalize/{competition}', 'CompetitionController@finalize');
     Route::get('/competition/winners/{competition}', 'ResultsController@results');
     Route::resource('competitions', 'CompetitionController');
+    
+    Route::get('/competition/fees/{competition}', 'CompetitionController@fees');
 });

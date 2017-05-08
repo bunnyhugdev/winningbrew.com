@@ -261,4 +261,13 @@ class CompetitionController extends Controller
 
         return redirect('/competition/admin/' . $competition->id);
     }
+    
+    public function fees(Request $request, Competition $competition) {
+        $this->authorize('admin', $competition);
+        
+        return view('competitions.fees', [
+            'entrants' => $this->competitions->fees($competition),
+            'competition' => $competition,
+        ]);
+    }
 }

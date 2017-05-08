@@ -192,4 +192,10 @@ class CompetitionRepository {
             ->get();
     }
 
+    public function fees(Competition $competition) {
+        $entrants = User::whereHas('entries', function ($query) use ($competition) {
+            $query->where('competition_id', '=', $competition->id);
+        })->get();
+        return $entrants;
+    }
 }
