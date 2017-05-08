@@ -9,16 +9,32 @@
     </div>
     <div class="row">
         <div class="col-xs-12">
+            <div class="btn-group">
+                <button
+                    type="button"
+                    class="btn btn-lg btn-default dropdown-toggle"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                    Reports <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="{{url('competition/pull_sheets/') . '/' . $competition->id}}" target="_blank">
+                        Pull Sheets</a></li>
+                    <li><a href="{{url('competition/judge_sheets/') . '/' . $competition->id}}" target="_blank">
+                         Judge Sheets</a></li>
+                    <li><a href="{{url('competition/category_xref/') . '/' . $competition->id}}" target="_blank">
+                        Category User List</a></li>
+                    <li><a href="{{url('competition/user_entries/') . '/' . $competition->id}}" target="_blank">
+                        User Entries</a></li>
+                    <li><a href="{{ url('/competition/receive-sheets/') . '/' . $competition->id }}" target="_blank">
+                        Receive Sheets</a></li>
+                    <li><a href="{{ url('/competition/fees/') . '/' . $competition->id }}" target="_blank">
+                        Fees Paid</a></li>
+                </ul>
+            </div>
             <a href="{{url('competition/receive/') . '/' . $competition->id}}"
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-check-square-o"></i> Receive Entries</a>
-            <a href="{{url('competition/pull_sheets/') . '/' . $competition->id}}" target="_blank"
-                class="btn btn-lg btn-default"><i class="fa fa-btn fa-list"></i> Pull Sheets</a>
-            <a href="{{url('competition/judge_sheets/') . '/' . $competition->id}}" target="_blank"
-                class="btn btn-lg btn-default"><i class="fa fa-btn fa-gavel"></i> Judge Sheets</a>
-            <a href="{{url('competition/category_xref/') . '/' . $competition->id}}" target="_blank"
-                class="btn btn-lg btn-default"><i class="fa fa-btn fa-user"></i> Category User List</a>
-            <a href="{{url('competition/user_entries/') . '/' . $competition->id}}" target="_blank"
-                class="btn btn-lg btn-default"><i class="fa fa-btn fa-th-list"></i> User Entries</a>
             <a href="{{url('competition/results/') . '/' . $competition->id}}"
                 class="btn btn-lg btn-default"><i class="fa fa-btn fa-star-o"></i> Enter Results</a>
             <a href="{{url('competition/finalize/') . '/' . $competition->id}}"

@@ -195,7 +195,7 @@ class CompetitionRepository {
     public function fees(Competition $competition) {
         $entrants = User::whereHas('entries', function ($query) use ($competition) {
             $query->where('competition_id', '=', $competition->id);
-        })->get();
+        })->orderBy('last_name')->get();
         return $entrants;
     }
 }
