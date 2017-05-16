@@ -30,7 +30,15 @@
                             @endphp
                             @if ($count > 0)
                             <tr>
-                                <td>{{ $entrant->last_name }}, {{ $entrant->first_name }}</td>
+                                <td>
+                                    <strong>{{ $entrant->last_name }}, {{ $entrant->first_name }}</strong> -
+                                        <a href="mailto:{{ $entrant->email }}">{{ $entrant->email }}</a><br>
+                                    {{ $entrant->address1 }}<br>
+                                    @if (!empty($entrant->adress2))
+                                        {{ $entrant->address2 }}<br>
+                                    @endif
+                                    {{ $entrant->city }}, {{ $entrant->province }}, {{ $entrant->postal_code }}
+                                </td>
                                 <td>{{ $count }}</td>
                                 <td>${{ $fees }}</td>
                                 <td>${{ $paid }}</td>
