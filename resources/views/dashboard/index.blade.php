@@ -38,7 +38,7 @@
                 <p>
                     <a href="{{ url('/entries/competition/') . '/' . $comp->id }}" class="btn btn-primary">
                         <i class="fa fa-btn fa-beer"></i> Register Your Brews</a>
-                @if (Auth::user()->isCompetitionAdmin($comp))
+                @if (Auth::user() && Auth::user()->isCompetitionAdmin($comp))
                     <a href="{{ url('/competition/admin/') . '/' . $comp->id }}" class="btn btn-default">
                         <i class="fa fa-btn fa-cogs"></i> Competition Dashboard</a>
                 @endif
@@ -46,7 +46,7 @@
             </div>
         @endforeach
         @endif
-        @if (count($past) > 0)
+        @if ($past && count($past) > 0)
             <div class="col-sm-12 col-md-12">
                 <h1>Past Competitions</h1>
             </div>
@@ -78,7 +78,7 @@
 
                     </div>
                     <p>
-                    @if (Auth::user()->isCompetitionAdmin($comp))
+                    @if (Auth::user() && Auth::user()->isCompetitionAdmin($comp))
                         <a href="{{ url('/competition/admin/') . '/' . $comp->id }}" class="btn btn-default">
                             <i class="fa fa-btn fa-cogs"></i> Competition Dashboard</a>
                     @endif

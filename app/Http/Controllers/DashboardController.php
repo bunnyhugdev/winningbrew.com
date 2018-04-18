@@ -16,15 +16,15 @@ class DashboardController extends Controller
     protected $competitions;
 
     public function __construct(CompetitionRepository $comps) {
-        $this->middleware('auth');
         $this->competitions = $comps;
     }
 
     public function index(Request $request) {
         $user = Auth::user();
+        $past = $user ? $this->competitions->adminOfPast($user) : null;
         return view('dashboard.index', [
             'upcoming' => $this->competitions->upcoming(),
-            'past' => $this->competitions->adminOfPast($user)
+            'past' => $past
         ]);
     }
 }

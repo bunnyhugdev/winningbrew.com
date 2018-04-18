@@ -12,11 +12,11 @@ use App\JudgingCategory;
 use DB;
 
 class CompetitionRepository {
-    
+
     public function adminOfPast(User $user) {
         return Competition::complete()->administeredBy($user)->get();
     }
-    
+
     public function upcoming() {
         return Competition::where('result_at', '>=', date('Y-m-d'))
             ->orderBy('entry_close', 'asc')
@@ -79,14 +79,14 @@ class CompetitionRepository {
             ->groupBy('clubs.name')
             ->get();
     }
-    
+
     public function getEntriesForStyle(Competition $competition, Style $style) {
         return Entry::where([
             'competition_id' => $competition->id,
             'style_id' => $style->id
         ])->orderBy('label')->get();
     }
-    
+
     public function entriesForStyle(Competition $competition, Style $style) {
         return DB::table('entries')
             ->join('styles', 'entries.style_id', '=', 'styles.id')

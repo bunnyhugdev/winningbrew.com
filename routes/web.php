@@ -22,6 +22,8 @@
 |
 */
 
+Route::get('/', 'DashboardController@index');
+
 Auth::routes();
 // TODO: Can remove this if we convert the logout method to send POST request
 Route::get('/logout', 'Auth\LoginController@logout');
@@ -34,8 +36,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/entry/{entry}', 'EntryController@destroy');
     Route::get('/entries/competition/{id}', 'EntryController@competition');
     Route::get('/entries/labels', 'EntryController@labels');
-
-    Route::get('/', 'DashboardController@index');
 
     Route::post('/payment', 'EntryController@payment');
     Route::get('/paypal', 'EntryController@paypal');
@@ -65,6 +65,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/competition/finalize/{competition}', 'CompetitionController@finalize');
     Route::get('/competition/winners/{competition}', 'ResultsController@results');
     Route::resource('competitions', 'CompetitionController');
-    
+
     Route::get('/competition/fees/{competition}', 'CompetitionController@fees');
 });
