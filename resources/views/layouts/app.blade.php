@@ -28,7 +28,7 @@
                     <!-- Authentication Links -->
                     @if (Auth::guest())
                         <form class="form-inline" method="POST" action="{{ url('/login') }}">
-                            {!! csrf_field() !!}
+                            @csrf
                             <input name="email" value="{{ old('email') }}" class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Email">
                             <input name="password" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password">
                             <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
