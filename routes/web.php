@@ -24,6 +24,11 @@
 
 Route::get('/', 'DashboardController@index');
 
+Route::get('/login/{provider}',
+    'Auth\SocialAccountController@redirectToProvider');
+Route::get('/login/{provider}/callback',
+    'Auth\SocialAccountController@handleProviderCallback');
+
 Auth::routes();
 // TODO: Can remove this if we convert the logout method to send POST request
 Route::get('/logout', 'Auth\LoginController@logout');

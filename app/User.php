@@ -14,9 +14,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'first_name', 'last_name', 'email', 'password', 'address1', 'address2',
+        'name', 'email', 'password', 'address1', 'address2',
         'city', 'province', 'postal_code', 'accepts_communication',
-        'club_id', 'shirt_size'
+        'club_id', 'shirt_size', 'provider', 'provider_id',
     ];
 
     /**
@@ -46,6 +46,10 @@ class User extends Authenticatable
 
     public function competitions() {
         return $this->hasMany(Competition::class, 'creator');
+    }
+
+    public function accounts() {
+        return $this->hasMany(LinkedSocialAccount::class);
     }
 
     public function isSuperAdmin() {
