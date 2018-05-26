@@ -27,13 +27,8 @@
                 <ul class="navbar-nav">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <form class="form-inline" method="POST" action="{{ url('/login') }}">
-                            @csrf
-                            <input name="email" value="{{ old('email') }}" class="form-control mr-sm-2" type="email" placeholder="Email" aria-label="Email">
-                            <input name="password" class="form-control mr-sm-2" type="password" placeholder="Password" aria-label="Password">
-                            <button class="btn btn-primary my-2 my-sm-0" type="submit">Login</button>
-                        </form>
-                        <!-- <li class="nav-item"><a class="nav-link" href="{{ url('/login') }}">Login</a></li> -->
+
+                        <li class="nav-item"><a class="btn btn-primary" href="{{ url('/login') }}">Login</a></li>
                         <li class="nav-item"><a class="nav-link" href="{{ url('/register') }}">Sign Up</a></li>
                     @else
                         <li class="nav-item dropdown">
