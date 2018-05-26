@@ -10402,8 +10402,8 @@ a.text-dark:focus {
   border-radius: 0;
 }
 
-.navbar-brand {
-  background-image: url(/images/winningbrew_logo.png?d207166d88869c88b302cac6197af825);
+.nonav .navbar-brand {
+  margin: 0 auto;
 }
 
 body {
@@ -10448,6 +10448,31 @@ h6 {
   border-color: #d78703;
 }
 
+.vertical-separator {
+  text-align: center;
+  color: #a2b6e1;
+  font-size: 24px;
+  margin-top: 35px;
+  position: relative;
+}
+
+.vertical-separator:before,
+.vertical-separator:after {
+  border-top: 1px solid #c9d4ed;
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: 50%;
+  width: 40%;
+  z-index: 0;
+}
+
+.vertical-separator:before {
+  left: auto;
+  right: 0;
+}
+
 body {
   background-color: #ffffff;
 }
@@ -10479,5 +10504,9 @@ body {
   border-radius: 4px;
   background-color: #fff;
   padding: 10px 15px;
+}
+
+.wtf {
+  text-align: center;
 }
 

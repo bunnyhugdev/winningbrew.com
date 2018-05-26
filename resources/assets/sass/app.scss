@@ -3,6 +3,7 @@
 @import "resources/assets/sass/navigation";
 @import "resources/assets/sass/typography";
 @import "resources/assets/sass/buttons";
+@import "resources/assets/sass/utilities";
 
 body {
     background-color: $base-colour;
@@ -37,4 +38,8 @@ body {
     border-radius: 4px;
     background-color: #fff;
     padding: 10px 15px;
+}
+
+.wtf {
+    text-align: center;
 }
